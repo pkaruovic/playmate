@@ -9,4 +9,11 @@ FactoryBot.define do
     email
     password { "password" }
   end
+
+  factory :post do
+    description { "Test post" }
+    city { "Belgrade" }
+    date { Date.today }
+    association :user, factory: :user
+  end
 end
