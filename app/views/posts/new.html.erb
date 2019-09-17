@@ -1,0 +1,31 @@
+<div class="post-form">
+  <% @post.errors.full_messages.each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+
+  <%= form_for @post do |form| %>
+    <div class="text-field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :city %>
+      <%= form.text_field :city %>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :date %>
+      <%= form.date_field :date %>
+    </div>
+
+    <div class="select-field">
+      <%= form.label :skill_level %>
+      <%= form.select :skill_level, Post.skill_levels.to_a, include_blank: true %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
