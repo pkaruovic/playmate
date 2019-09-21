@@ -11,16 +11,16 @@
 
   <body>
     <% if signed_in? %>
-      <%= "#{current_user.first_name} #{current_user.last_name}" %>
-      <%= button_to "Sign out", sign_out_path, method: :delete %>
+      <%= render partial: "layouts/sidebar", locals: { user: current_user } %>
     <% end %>
+    <div class="content">
+      <div id="flash">
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+      </div>
 
-    <div id="flash">
-      <% flash.each do |key, value| %>
-        <div class="flash <%= key %>"><%= value %></div>
-      <% end %>
+      <%= yield %>
     </div>
-
-    <%= yield %>
   </body>
 </html>
