@@ -1,7 +1,20 @@
-<div>
-  <div><%= "#{post.user.first_name} #{post.user.last_name}" %></div>
-  <div><%= post.description %></div>
-  <div>City: <%= post.city %></div>
-  <div>Date: <%= post.date %></div>
-  <div>Skill level: <%= post.skill_level %></div>
+<div class="post">
+  <div class="owner-details">
+    <%= post.user.display_name %>
+    <div>
+      <%= time_ago_in_words(post.created_at) %>
+      ago
+    </div>
+  </div>
+  <div class="description"><%= post.description %></div>
+  <div class="details">
+    <div class="details-field">City: <%= post.city %></div>
+    <div class="details-field">Date: <%= post.date.strftime("%a, %e %b, %Y") %></div>
+    <% if post.skill_level.present? %>
+      <div class="details-field">Skill level: <%= post.skill_level %></div>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= link_to "Open", post_path(post) %>
+  </div>
 </div>
