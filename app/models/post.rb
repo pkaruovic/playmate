@@ -11,4 +11,8 @@ class Post < ApplicationRecord
 
   validates :description, presence: true, length: { maximum: 250 }
   validates :city, :date, presence: true
+  
+  def belongs_to?(user)
+    self.user.id == user.id
+  end
 end
