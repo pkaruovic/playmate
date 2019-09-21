@@ -11,6 +11,8 @@ class Post < ApplicationRecord
 
   validates :description, presence: true, length: { maximum: 250 }
   validates :city, :date, presence: true
+
+  scope :by_date, ->{ order(created_at: :desc) }
   
   def belongs_to?(user)
     self.user.id == user.id
