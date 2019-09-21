@@ -3,7 +3,7 @@
 class HomesController < ApplicationController
   before_action :require_login
 
-  def index
+  def show
     @posts = Post.by_date.page(params[:page]).per(10)
   end
 end
