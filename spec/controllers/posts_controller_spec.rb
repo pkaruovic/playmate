@@ -28,7 +28,7 @@ describe PostsController do
         city: "Belgrade",
         date: 5.days.from_now.to_date
       )
-      expect(response).to redirect_to post
+      expect(response).to render_template("edit")
     end
   end
 end

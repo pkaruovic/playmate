@@ -3,10 +3,6 @@
 class PostsController < ApplicationController
   before_action :require_login
 
-  def show
-    @post = Post.find(params[:id])
-  end
-
   def new
     @post = Post.new
   end
@@ -18,7 +14,8 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to @post
+      flash[:note] = "Post successfuly created"
+      render "edit"
     else
       render "new"
     end
