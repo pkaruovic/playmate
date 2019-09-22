@@ -11,3 +11,8 @@
     </div>
   <% end %>
 </div>
+
+<%= form_for @post do |form| %>
+  <%= form.hidden_field :archived, value: !@post.archived? %>
+  <%= form.submit @post.archived? ? "Restore" : "Archive" %>
+<% end %>

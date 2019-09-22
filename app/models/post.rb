@@ -13,7 +13,8 @@ class Post < ApplicationRecord
   validates :city, :date, presence: true
 
   scope :by_date, ->{ order(created_at: :desc) }
-  
+  scope :active, ->{ where(archived: false) }
+
   def belongs_to?(user)
     self.user.id == user.id
   end
