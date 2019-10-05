@@ -1,9 +1,18 @@
 language: ruby
 rvm:
   - 2.6.3
+addons:
+  chrome: stable
+  apt:
+    update: true
+    packages:
+      - chromium-chromedriver
+before_script:
+  - "export PATH=$PATH:/usr/lib/chromium-browser/"
 script:
   - bundle exec rails db:create RAILS_ENV=test
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec
 services:
-    - postgresql
+  - postgresql
+  - xvfb

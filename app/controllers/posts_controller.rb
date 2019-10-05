@@ -34,6 +34,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:description, :city, :date, :skill_level)
+    params.require(:post).permit(:description, :city, :date, :skill_level, :archived)
   end
 end

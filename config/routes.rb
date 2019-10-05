@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   root to: "homes#show"
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
@@ -15,4 +17,5 @@ Rails.application.routes.draw do
   get "/sign_up" => "clearance/users#new", as: "sign_up"
 
   resources :posts, only: [:new, :edit, :update, :create]
+  resources :interesting_posts, only: [:create]
 end

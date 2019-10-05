@@ -2,6 +2,7 @@
 
 class Post < ApplicationRecord
   belongs_to :user
+  has_and_belongs_to_many :interested_users, class_name: 'User'
 
   enum skill_level: {
     beginner: "beginner",
@@ -13,7 +14,8 @@ class Post < ApplicationRecord
   validates :city, :date, presence: true
 
   scope :by_date, ->{ order(created_at: :desc) }
-  
+  scope :active, ->{ where(archived: false) }
+
   def belongs_to?(user)
     self.user.id == user.id
   end
