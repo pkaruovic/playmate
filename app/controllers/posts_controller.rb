@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
     if @post.save
       flash[:note] = "Post successfully created"
-      render "edit"
+      redirect_to edit_post_path(@post)
     else
       render "new"
     end
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
       flash[:note] = "Post successfully updated"
-      render "edit"
+      redirect_to edit_post_path(@post)
     else
       render "edit"
     end
