@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'capybara/rspec'
 require "clearance/rspec"
+require "selenium/webdriver"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -74,6 +75,8 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :truncation
     end
   end
+
+  Capybara.javascript_driver = :selenium_chrome_headless
 
   config.before(:each) do
     DatabaseCleaner.start
