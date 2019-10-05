@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get "/sign_up" => "clearance/users#new", as: "sign_up"
 
   resources :posts, only: [:new, :edit, :update, :create]
+  resources :interesting_posts, only: [:create]
 end
