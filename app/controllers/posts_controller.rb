@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      flash[:note] = "Post successfuly created"
+      flash[:note] = "Post successfully created"
       render "edit"
     else
       render "new"
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
-      flash[:note] = "Post successfuly updated"
+      flash[:note] = "Post successfully updated"
       render "edit"
     else
       render "edit"
