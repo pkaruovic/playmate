@@ -5,6 +5,7 @@
   <div class="sidebar-content">
     <%= link_to "Home", root_path %>
     <%= link_to "New post", new_post_path %>
+    <%= link_to "Profile", user_path(current_user) %>
     <%= link_to "Sign out", sign_out_path, method: :delete %>
   </div>
 </div>

@@ -1,0 +1,34 @@
+<% @user.errors.full_messages.each do |error| %>
+  <div><%= error %></div>
+<% end %>
+
+<%= form_for(@user) do |f| %>
+  <div class="text-field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :birth_date %>
+    <%= f.date_field :birth_date %>
+  </div>
+
+  <div class="text-area">
+    <%= f.label :gender %>
+    <%= f.select :gender, User.genders %>
+  </div>
+
+  <div class="select-field">
+    <%= f.label :biography %>
+    <%= f.text_area :biography %>
+  </div>
+
+  <div class="submit-button">
+    <%= f.submit "Save" %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<div id="personal-data">
+  <h3><%= @user.display_name %></h3>
+  <div>Birth date: <%= @user.birth_date.present? ? @user.birth_date.strftime("%e %b, %Y") : "N/A" %></div>
+  <div>Gender: <%= @user.gender? ? @user.gender : "N/A" %></div>
+  <div>Biography: <%= @user.biography? ? @user.biography : "N/A" %></div>
+</div>
+
+<%= link_to "Edit", edit_user_path(@user) %>
