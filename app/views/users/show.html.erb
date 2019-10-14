@@ -1,4 +1,5 @@
 <div id="personal-data">
+  <%= gravatar_tag @user.email, size: 160 %>
   <h3><%= @user.display_name %></h3>
   <div>Birth date: <%= @user.birth_date.present? ? @user.birth_date.strftime("%e %b, %Y") : "N/A" %></div>
   <div>Gender: <%= @user.gender? ? @user.gender : "N/A" %></div>

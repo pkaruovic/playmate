@@ -5,10 +5,19 @@
   width: 600px;
   margin-bottom: 20px;
 
-  .owner-details {
+  .post-details {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
+  }
+
+  .owner-details {
+    display: flex;
+    align-items: center;
+
+    .profile-image {
+      padding-right: 10px;
+    }
   }
 
   .description {

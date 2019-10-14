@@ -1,6 +1,9 @@
 <div id="<%= "post-#{post.id}" %>" class="post">
-  <div class="owner-details">
-    <%= link_to post.user.display_name, user_path(post.user) %>
+  <div class="post-details">
+    <div class="owner-details">
+      <%= gravatar_tag post.user.email, size: 40, html: { class: "profile-image" } %>
+      <%= link_to post.user.display_name, user_path(post.user) %>
+    </div>
     <div>
       <%= time_ago_in_words(post.created_at) %>
       ago
