@@ -2,7 +2,7 @@
   <div><%= error %></div>
 <% end %>
 
-<%= form_for(@user) do |f| %>
+<%= form_for @user, url: profile_path(@user) do |f| %>
   <div class="text-field">
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>

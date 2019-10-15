@@ -6,4 +6,6 @@
   <div>Biography: <%= @user.biography? ? @user.biography : "N/A" %></div>
 </div>
 
-<%= link_to "Edit", edit_user_path(@user) %>
+<% if current_user == @user %>
+  <%= link_to "Edit", edit_profile_path(@user) %>
+<% end %>
