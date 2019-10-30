@@ -1,13 +1,17 @@
-<div class="post-form">
+<div class="container">
+  <h2 class="center-align">Create post</h2>
+
+  <hr class="thick">
+
   <% @post.errors.full_messages.each do |error| %>
     <div><%= error %></div>
   <% end %>
 
-  <%= form_for @post do |form| %>
+  <%= form_for @post, html: { class: "form" } do |form| %>
     <%= render partial: "form", object: form %>
 
     <div class="submit-button">
-      <%= form.submit %>
+      <%= form.submit "Create", class: "action-button primary" %>
     </div>
   <% end %>
 </div>

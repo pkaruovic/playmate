@@ -1,0 +1,18 @@
+<div id="clearance" class="panel">
+  <div class="box">
+    <h2 class="center-align">Log in to Playmate</h2>
+    <%= render partial: "/sessions/form" %>
+  </div>
+
+  <div class="other-links">
+    <%= link_to "Forgot your password?", new_password_path %>
+  </div>
+
+  <% if Clearance.configuration.allow_sign_up? %>
+    <div class="other-links">
+      Need an account?
+      <%= link_to t(".sign_up"), sign_up_path %>
+    </div>
+  <% end %>
+</div>
+

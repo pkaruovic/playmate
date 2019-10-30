@@ -1,19 +1,19 @@
-<div class="text-field">
-  <%= form.label :description %>
-  <%= form.text_area :description %>
+<div class="form-field">
+  <%= form.label :description, class: "label" %>
+  <%= form.text_area :description, class: "text-input" %>
 </div>
 
-<div class="text-field">
-  <%= form.label :city %>
-  <%= form.text_field :city %>
+<div class="form-field">
+  <%= form.label :city, class: "label" %>
+  <%= form.text_field :city, class: "text-input" %>
 </div>
 
-<div class="text-field">
-  <%= form.label :date %>
-  <%= form.date_field :date %>
+<div class="form-field">
+  <%= form.label :date, class: "label" %>
+  <%= form.date_field :date, class: "text-input" %>
 </div>
 
-<div class="select-field">
-  <%= form.label :skill_level %>
-  <%= form.select :skill_level, Post.skill_levels.to_a, include_blank: true %>
+<div class="form-field">
+  <%= form.label :skill_level, class: "label" %>
+  <%= form.select :skill_level, Post.skill_levels.to_a, { include_blank: true }, { class: "text-input" } %>
 </div>

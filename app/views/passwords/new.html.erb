@@ -1,0 +1,19 @@
+<div id="clearance" class="panel">
+  <div class="box">
+    <h2 class="center-align">Forgot your password?</h2>
+    <p>
+      Enter your email address below and we’ll send you password reset instructions.
+    </p>
+
+    <%= form_for :password, url: passwords_path do |form| %>
+      <div class="form-field">
+        <%= form.label :email, class: "label" %>
+        <%= form.text_field :email, type: "email", class: "text-input" %>
+      </div>
+
+      <div class="submit-field">
+        <%= form.submit "Reset password", class: "action-button primary expand" %>
+      </div>
+    <% end %>
+  </div>
+</div>

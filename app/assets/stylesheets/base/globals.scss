@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  background: $bg-color;
+  font-family: 'Graphik', 'Helvetica Neue', helvetica, 'Apple Color Emoji',
+    arial, sans-serif;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: $medium;
+}
+
+.content {
+  padding-top: 70px;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.expand {
+  width: 100%;
+}
+
+.container {
+  width: 700px;
+  background: $white;
+  padding: 30px;
+  border: $border-color;
+  border-radius: $box-radius;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: $box-shadow;
+}
+
+.thick {
+  border-width: 1px;
+  border-color: $black;
+  margin-bottom: 30px;
+}

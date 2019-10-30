@@ -1,18 +1,26 @@
-<div class="post-form">
+<div class="container">
+  <h2 class="center-align">Edit post details</h2>
+
+  <hr class="thick">
+
   <% @post.errors.full_messages.each do |error| %>
     <div><%= error %></div>
   <% end %>
 
-  <%= form_for @post do |form| %>
+  <%= form_for @post, html: { class: "form" } do |form| %>
     <%= render partial: "form", object: form %>
 
     <div class="submit-button">
-      <%= form.submit %>
+      <%= form_for @post do |form| %>
+        <%= form.hidden_field :archived, value: !@post.archived? %>
+        <% if @post.archived? %>
+          <%= form.submit "Restore", class: "action-button" %>
+        <% else %>
+          <%= form.submit "Archive", class: "action-button dangerous" %>
+        <% end %>
+      <% end %>
+
+      <%= form.submit "Save", class: "action-button primary" %>
     </div>
   <% end %>
 </div>
-
-<%= form_for @post do |form| %>
-  <%= form.hidden_field :archived, value: !@post.archived? %>
-  <%= form.submit @post.archived? ? "Restore" : "Archive" %>
-<% end %>

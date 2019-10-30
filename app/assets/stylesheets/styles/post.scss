@@ -1,27 +1,30 @@
+.posts-list {
+  width: 800px;
+  margin: auto;
+}
+
 .post {
   padding: 10px 15px;
-  border: 1px solid #d9dbe0;
-  border-radius: 10px;
-  width: 600px;
+  border: 1px solid $border-color;
+  border-radius: $box-radius;
+  width: 100%;
   margin-bottom: 20px;
+  background: $white;
+  box-shadow: $box-shadow;
 
   .post-details {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: $small;
   }
 
   .owner-details {
     display: flex;
     align-items: center;
-
-    .profile-image {
-      padding-right: 10px;
-    }
   }
 
   .description {
-    font-size: 16px;
+    font-size: $medium;
     padding: 8px 0;
   }
 
@@ -29,7 +32,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 14px;
+    font-size: $small;
 
     .details-field {
       padding-right: 10px;
@@ -39,6 +42,6 @@
   .actions {
     margin-top: 8px;
     padding-top: 4px;
-    border-top: 1px solid #d9dbe0;
+    border-top: 1px solid $border-color;
   }
 }

@@ -1,0 +1,20 @@
+<div id="clearance" class="panel">
+  <div class="box">
+    <h2 class="center-align"><%= t(".title") %></h2>
+
+    <p><%= t(".description") %></p>
+
+    <%= form_for :password_reset,
+      url: user_password_path(@user, token: @user.confirmation_token),
+      html: { method: :put  } do |form| %>
+      <div class="form-field">
+        <%= form.label :password, class: "label" %>
+        <%= form.password_field :password, class: "text-input" %>
+      </div>
+
+      <div class="submit-field">
+        <%= form.submit "Save", class: "action-button primary expand" %>
+      </div>
+    <% end %>
+  </div>
+</div>

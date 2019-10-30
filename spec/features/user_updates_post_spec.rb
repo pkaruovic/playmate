@@ -13,7 +13,7 @@ feature "User updates post" do
     fill_in "City", with: "Belgrade"
     fill_in "Date", with: date
     select "beginner", from: "Skill level"
-    click_button "Update"
+    click_button "Save"
 
     expect(page).to have_field "Description", with: "Hello there!"
     expect(page).to have_field "City", with: "Belgrade"

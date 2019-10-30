@@ -1,0 +1,42 @@
+.nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  background: $bg-color;
+}
+
+.nav-app-name {
+  font-size: $medium;
+  font-weight: 600;
+}
+
+.nav-main-actions {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link {
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: $medium;
+  font-weight: 600;
+  color: inherit;
+
+  &:hover {
+    border-radius: $input-radius;
+    background: $hover-bg;
+    box-shadow: $btn-shadow;
+  }
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

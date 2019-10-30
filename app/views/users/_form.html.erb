@@ -2,22 +2,28 @@
   <div><%= error %></div>
 <% end %>
 
-<div class="text-field">
-  <%= form.label :first_name %>
-  <%= form.text_field :first_name %>
+<%= form_for @user do |form| %>
+<div class="form-field">
+  <%= form.label :first_name, class: "label" %>
+  <%= form.text_field :first_name, class: "text-input" %>
 </div>
 
-<div class="text-field">
-  <%= form.label :last_name %>
-  <%= form.text_field :last_name %>
+<div class="form-field">
+  <%= form.label :last_name, class: "label" %>
+  <%= form.text_field :last_name, class: "text-input" %>
 </div>
 
-<div class="text-field">
-  <%= form.label :email %>
-  <%= form.text_field :email, type: 'email' %>
+<div class="form-field">
+  <%= form.label :email, class: "label" %>
+  <%= form.text_field :email, type: "email", class: "text-input" %>
 </div>
 
-<div class="password-field">
-  <%= form.label :password %>
-  <%= form.password_field :password %>
+<div class="form-field">
+  <%= form.label :password, class: "label" %>
+  <%= form.password_field :password, class: "text-input" %>
 </div>
+
+<div class="submit-field">
+  <%= form.submit "Sign up", class: "action-button primary expand" %>
+</div>
+<% end %>
