@@ -6,7 +6,7 @@ feature "user signs in" do
   it "with valid params" do
     email = "user@example.com"
     password = "password"
-    create(:user, first_name: "John", last_name: "Doe", email: email, password: password)
+    create(:user, email: email, password: password)
 
     visit sign_in_path
     fill_in "Email", with: email

@@ -8,9 +8,9 @@ class User < ApplicationRecord
 
   enum genders: { male: "male", female: "female" }
 
-  validates :first_name, :last_name, presence: true, length: { minimum: 2, maximum: 25 }
+  validates :name, presence: true, length: { minimum: 2, maximum: 70 }
 
   def display_name
-    "#{first_name} #{last_name}"
+    name
   end
 end

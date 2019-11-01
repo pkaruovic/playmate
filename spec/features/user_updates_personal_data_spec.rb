@@ -4,11 +4,10 @@ require "rails_helper"
 
 feature "user updates personal data" do
   scenario "successfully" do
-    user = create(:user, first_name: "John", last_name: "Doe")
+    user = create(:user, name: "John Doe")
 
     visit edit_profile_path(user, as: user)
-    fill_in "First name", with: "Mila"
-    fill_in "Last name", with: "Kunis"
+    fill_in "Name", with: "Mila Kunis"
     fill_in "Birth date", with: "14-9-1983"
     select "female", from: "Gender"
     fill_in "Biography", with: "I'm young movie star."
