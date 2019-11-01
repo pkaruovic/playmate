@@ -9,8 +9,4 @@ class User < ApplicationRecord
   enum genders: { male: "male", female: "female" }
 
   validates :name, presence: true, length: { minimum: 2, maximum: 70 }
-
-  def display_name
-    name
-  end
 end

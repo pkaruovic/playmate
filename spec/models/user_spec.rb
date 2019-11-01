@@ -8,12 +8,4 @@ describe User, type: :model do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should have_many(:posts).dependent(:destroy) }
-
-  describe "#display_name" do
-    it "is name" do
-      user = create(:user, name: "Igor Pantovic")
-
-      expect(user.display_name).to eq "Igor Pantovic"
-    end
-  end
 end

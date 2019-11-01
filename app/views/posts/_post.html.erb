@@ -2,7 +2,7 @@
   <div class="post-details">
     <div class="owner-details">
       <%= gravatar_tag post.user.email, html: { class: "user-avatar" } %>
-      <%= link_to post.user.display_name, profile_path(post.user) %>
+      <%= link_to post.user.name, profile_path(post.user) %>
     </div>
     <div>
       <%= time_ago_in_words(post.created_at) %>
