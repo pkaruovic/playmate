@@ -42,6 +42,7 @@
   font-size: $medium;
   color: $black;
   box-sizing: border-box;
+  resize: none;
 
   &:focus {
     outline: none;
