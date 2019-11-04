@@ -9,9 +9,13 @@ class Post < ApplicationRecord
     intermediate: "intermediate",
     advanced: "advanced"
   }
+  enum game_type: {
+    "board game" => "board game",
+    "sport" => "sport"
+  }
 
   validates :description, presence: true, length: { maximum: 250 }
-  validates :city, :date, presence: true
+  validates :city, :date, :game, :game_type, :players_needed, presence: true
 
   scope :by_date, ->{ order(created_at: :desc) }
   scope :active, ->{ where("date >= ?", Date.today).where(archived: false) }

@@ -10,6 +10,9 @@ FactoryBot.define do
   end
 
   factory :post do
+    game { "Football" }
+    game_type { "sport" }
+    players_needed { 2 }
     description { "Test post" }
     city { "Belgrade" }
     date { Date.today }

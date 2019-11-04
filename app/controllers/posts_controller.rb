@@ -3,6 +3,10 @@
 class PostsController < ApplicationController
   before_action :require_login
 
+  def show
+    @post = current_user.posts.find(params[:id])
+  end
+
   def new
     @post = Post.new
   end
@@ -25,7 +29,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
       flash[:note] = "Post successfully updated"
-      redirect_to edit_post_path(@post)
+      redirect_to post_path(@post)
     else
       render "edit"
     end
@@ -34,6 +38,9 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:description, :city, :date, :skill_level, :archived)
+    params.require(:post).permit(
+      :game, :game_type, :description, :city, :date,
+      :skill_level, :players_needed, :archived
+    )
   end
 end

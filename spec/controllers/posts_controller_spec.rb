@@ -12,7 +12,10 @@ describe PostsController do
         :create,
         params: {
           post: {
+            game: "Catan",
+            game_type: "board game",
             description: "Hello there!",
+            players_needed: 3,
             skill_level: "beginner",
             city: "Belgrade",
             date: 5.days.from_now.to_date
@@ -23,7 +26,10 @@ describe PostsController do
       expect(user.posts.count).to eq 1
       post = user.posts.first
       expect(post).to have_attributes(
+        game: "Catan",
+        game_type: "board game",
         description: "Hello there!",
+        players_needed: 3,
         skill_level: "beginner",
         city: "Belgrade",
         date: 5.days.from_now.to_date
