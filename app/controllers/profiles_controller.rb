@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
   def validate_user
     user = User.find(params[:id])
     if user != current_user
-      render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found
+      not_found
     end
   end
 end
