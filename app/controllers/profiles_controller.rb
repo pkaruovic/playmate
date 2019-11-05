@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:note] = "Profile updated"
-      redirect_to edit_profile_path(@user)
+      redirect_to profile_path(@user)
     else
       render "edit"
     end
