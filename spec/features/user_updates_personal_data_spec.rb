@@ -9,7 +9,6 @@ feature "user updates personal data" do
     visit edit_profile_path(user, as: user)
     fill_in "Name", with: "Mila Kunis"
     fill_in "Birth date", with: "14-9-1983"
-    select "female", from: "Gender"
     fill_in "Biography", with: "I'm young movie star."
     click_button "Save"
 
@@ -17,7 +16,6 @@ feature "user updates personal data" do
     within "#personal-data" do
       expect(page).to have_content "Mila Kunis"
       expect(page).to have_content "14 Sep, 1983"
-      expect(page).to have_content "female"
       expect(page).to have_content "I'm young movie star."
     end
   end

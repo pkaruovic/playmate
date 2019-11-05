@@ -1,11 +1,21 @@
-<div id="personal-data">
-  <%= gravatar_tag @user.email, size: 160 %>
-  <h3><%= @user.name %></h3>
-  <div>Birth date: <%= @user.birth_date.present? ? @user.birth_date.strftime("%e %b, %Y") : "N/A" %></div>
-  <div>Gender: <%= @user.gender? ? @user.gender : "N/A" %></div>
-  <div>Biography: <%= @user.biography? ? @user.biography : "N/A" %></div>
-</div>
+<div id="personal-data" class="center-content box d-flex">
+  <%= gravatar_tag @user.email, size: 150, html: { class: "user-profile-avatar mr-4" } %>
+  <div class="d-flex flex-column flex-auto">
+    <div class="d-flex flex-justify-between">
+      <div class="f3 bold"><%= @user.name %></div>
 
-<% if current_user == @user %>
-  <%= link_to "Edit", edit_profile_path(@user) %>
-<% end %>
+      <% if current_user == @user %>
+        <%= link_to "Edit", edit_profile_path(@user), class: "action-button primary" %>
+      <% end %>
+    </div>
+
+    <div class="mb-1 f4">
+      <span class="bold">Birthday: </span>
+      <%= @user.birth_date.present? ? @user.birth_date.strftime("%e %b, %Y") : "N/A" %>
+    </div>
+    <div class="f4">
+      <span class="bold">Biography: </span>
+      <%= @user.biography? ? @user.biography : "N/A" %>
+    </div>
+  </div>
+</div>

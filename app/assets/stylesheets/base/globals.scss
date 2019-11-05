@@ -33,12 +33,16 @@ a {
   font-size: $medium;
 }
 
+.f3 {
+  font-size: 24px;
+}
+
 .bold {
   font-weight: 600;
 }
 
 .gray {
-  color: #6D6D6D;
+  color: #6d6d6d;
 }
 
 .m-1 {
@@ -115,6 +119,14 @@ a {
 
 .flex-align-center {
   align-items: center;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
 }
 
 .content {
