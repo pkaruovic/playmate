@@ -18,6 +18,10 @@
   font-weight: 600;
 }
 
+.field_with_errors {
+  color: $red;
+}
+
 .form-field {
   padding-bottom: 10px;
 
