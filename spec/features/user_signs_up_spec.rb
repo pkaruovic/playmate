@@ -20,7 +20,7 @@ feature "user signs up" do
     fill_in "Name", with: "John Doe"
     click_button "Sign up"
 
-    expect(page).to have_content "Email can't be blank"
+    expect(page).to have_content "Email is invalid"
     expect(page).to have_content "Password can't be blank"
   end
 end
