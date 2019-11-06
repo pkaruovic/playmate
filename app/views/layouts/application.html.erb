@@ -10,15 +10,11 @@
   </head>
 
   <body>
-    <% if signed_in? %>
-      <%= render partial: "layouts/nav", locals: { user: current_user } %>
-    <% end %>
+    <%= render partial: "layouts/nav", locals: { user: current_user } %>
     <div class="content">
-      <div id="flash">
-        <% flash.each do |key, value| %>
-          <div class="flash <%= key %>"><%= value %></div>
-        <% end %>
-      </div>
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %> center-align bold p-2 mb-3"><%= value %></div>
+      <% end %>
 
       <%= yield %>
     </div>
