@@ -3,10 +3,6 @@
 
   <hr class="thick">
 
-  <% @post.errors.full_messages.each do |error| %>
-    <div><%= error %></div>
-  <% end %>
-
   <%= form_for @post, html: { class: "form" } do |form| %>
     <%= render partial: "form", object: form %>
 
