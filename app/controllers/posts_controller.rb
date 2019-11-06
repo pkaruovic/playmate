@@ -3,6 +3,10 @@
 class PostsController < ApplicationController
   before_action :require_login
 
+  def index
+    @posts = current_user.posts.by_date.page(params[:page]).per(10)
+  end
+
   def show
     @post = current_user.posts.find(params[:id])
   end
