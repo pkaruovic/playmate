@@ -3,6 +3,14 @@
 class PostsController < ApplicationController
   before_action :require_login
 
+  def index
+    @posts = current_user.posts.by_date.page(params[:page]).per(10)
+  end
+
+  def show
+    @post = current_user.posts.find(params[:id])
+  end
+
   def new
     @post = Post.new
   end
@@ -14,8 +22,8 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      flash[:note] = "Post successfuly created"
-      render "edit"
+      flash[:note] = "Post successfully created"
+      redirect_to edit_post_path(@post)
     else
       render "new"
     end
@@ -24,8 +32,8 @@ class PostsController < ApplicationController
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
-      flash[:note] = "Post successfuly updated"
-      render "edit"
+      flash[:note] = "Post successfully updated"
+      redirect_to post_path(@post)
     else
       render "edit"
     end
@@ -34,6 +42,9 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:description, :city, :date, :skill_level, :archived)
+    params.require(:post).permit(
+      :game, :game_type, :description, :city, :date,
+      :skill_level, :players_needed, :archived
+    )
   end
 end

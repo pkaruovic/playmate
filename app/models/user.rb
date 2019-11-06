@@ -6,9 +6,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_and_belongs_to_many :interesting_posts, class_name: 'Post'
 
-  validates :first_name, :last_name, presence: true
+  enum genders: { male: "male", female: "female" }
 
-  def display_name
-    "#{first_name} #{last_name}"
-  end
+  validates :name, presence: true, length: { minimum: 2, maximum: 70 }
 end

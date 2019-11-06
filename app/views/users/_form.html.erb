@@ -1,23 +1,20 @@
-<% @user.errors.full_messages.map do |error| %>
-  <div><%= error %></div>
+<%= form_for @user do |form| %>
+  <div class="form-field">
+    <%= label_for form, :name, class: "label" %>
+    <%= form.text_field :name, class: "text-input" %>
+  </div>
+
+  <div class="form-field">
+    <%= label_for form, :email, class: "label" %>
+    <%= form.text_field :email, type: "email", class: "text-input" %>
+  </div>
+
+  <div class="form-field">
+    <%= label_for form, :password, class: "label" %>
+    <%= form.password_field :password, class: "text-input" %>
+  </div>
+
+  <div class="submit-field">
+    <%= form.submit "Sign up", class: "action-button primary expand" %>
+  </div>
 <% end %>
-
-<div class="text-field">
-  <%= form.label :first_name %>
-  <%= form.text_field :first_name %>
-</div>
-
-<div class="text-field">
-  <%= form.label :last_name %>
-  <%= form.text_field :last_name %>
-</div>
-
-<div class="text-field">
-  <%= form.label :email %>
-  <%= form.text_field :email, type: 'email' %>
-</div>
-
-<div class="password-field">
-  <%= form.label :password %>
-  <%= form.password_field :password %>
-</div>

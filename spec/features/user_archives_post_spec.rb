@@ -7,7 +7,7 @@ feature "User archives post" do
     user = create(:user)
     post = create(:post, user: user, description: "Testing post archive")
 
-    visit edit_post_path(post, as: user)
+    visit post_path(post, as: user)
     click_button "Archive"
     visit root_path
 
@@ -20,7 +20,7 @@ feature "User restores archived post" do
     user = create(:user)
     post = create(:post, user: user, description: "Testing post restore", archived: true)
 
-    visit edit_post_path(post, as: user)
+    visit post_path(post, as: user)
     click_button "Restore"
     visit root_path
 

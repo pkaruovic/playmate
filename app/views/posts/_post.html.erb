@@ -1,31 +1,66 @@
-<div id="<%= "post-#{post.id}" %>" class="post">
-  <div class="owner-details">
-    <%= post.user.display_name %>
-    <div>
-      <%= time_ago_in_words(post.created_at) %>
-      ago
+<div id="<%= "post-#{post.id}" %>" class="post" data-test="<%= "post-#{post.id}" %>">
+  <div class="d-flex flex-align-center mb-2">
+    <%= gravatar_tag post.user.email, html: { class: "user-avatar mr-2" } %>
+    <div class="d-flex flex-column left-padding">
+      <%= link_to post.user.name, profile_path(post.user), data: { test: "post_owner" }, class: "f4 bold" %>
+      <span class="f6 gray">
+        <%= time_ago_in_words(post.created_at) %> ago
+      </span>
     </div>
   </div>
-  <div class="description"><%= post.description %></div>
-  <div class="details">
-    <div class="details-field">City: <%= post.city %></div>
-    <div class="details-field">Date: <%= post.date.strftime("%a, %e %b, %Y") %></div>
+
+  <div class="d-flex f5 mb-2">
+    <div class="d-flex flex-align-center mr-3">
+      <%= embedded_svg "svg/die.svg", class: "mr-2" %>
+      <span data-test="post_game"><%= post.game %></span>
+    </div>
+    <div class="d-flex flex-align-center mr-3">
+      <%= embedded_svg "svg/place.svg", class: "mr-2" %>
+      <span data-test="post_city"><%= post.city %></span>
+    </div>
+    <div class="d-flex flex-align-center mr-3">
+      <%= embedded_svg "svg/calendar.svg", class: "mr-2" %>
+      <span data-test="post_date"><%= post.date.strftime("%-e.%-m.%y") %></span>
+    </div>
+    <div class="d-flex flex-align-center mr-3">
+      <%= embedded_svg "svg/person.svg", class: "mr-2" %>
+      <span data-test="post_players_needed"><%= post.players_needed %></span>
+    </div>
     <% if post.skill_level.present? %>
-      <div class="details-field">Skill level: <%= post.skill_level %></div>
+      <div class="d-flex flex-align-center mr-3">
+        <%= embedded_svg "svg/weight.svg", class: "mr-2" %>
+        <span data-test="post_skill_level"><%= post.skill_level %></span>
+      </div>
     <% end %>
   </div>
-  <div class="actions">
+
+  <div class="mb-3" data-test="post_description">
+    <%= post.description %>
+  </div>
+
+  <hr class="thin">
+
+  <div class="d-flex flex-align-center">
     <% if post.belongs_to?(current_user) %>
-      <%= link_to "Edit", edit_post_path(post) %>
+      <%= link_to "Edit", edit_post_path(post), class: "f4 bold mr-3" %>
+
+      <%= form_for post do |form| %>
+        <%= form.hidden_field :archived, value: !post.archived? %>
+        <% if post.archived? %>
+          <%= form.submit "Restore", class: "link-button" %>
+        <% else %>
+          <%= form.submit "Archive", class: "link-button" %>
+        <% end %>
+      <% end %>
     <% end %>
 
     <% if !post.belongs_to?(current_user) && !current_user.interesting_posts.include?(post)  %>
       <%= form_tag interesting_posts_path, remote: true do %>
         <%= hidden_field :data, :post_id, value: post.id %>
-        <%= submit_tag "Interested" %>
+        <%= submit_tag "Interested", class: "link-button" %>
       <% end %>
     <% elsif current_user.interesting_posts.include?(post)  %>
-      <div>✓ Interested</div>
+      <div class="f4 bold">✓ Interested</div>
     <% end %>
   </div>
 </div>

@@ -29,5 +29,11 @@ module Playmate
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.to_prepare do
+      Clearance::PasswordsController.layout "onboarding"
+      Clearance::SessionsController.layout "onboarding"
+      Clearance::UsersController.layout "onboarding"
+    end
   end
 end

@@ -1,19 +1,34 @@
-<div class="text-field">
-  <%= form.label :description %>
-  <%= form.text_area :description %>
+<div class="form-field">
+  <%= label_for form, :game, class: "label" %>
+  <%= form.text_field :game, class: "text-input" %>
 </div>
 
-<div class="text-field">
-  <%= form.label :city %>
-  <%= form.text_field :city %>
+<div class="form-field">
+  <%= label_for form, :game_type, class: "label" %>
+  <%= form.select :game_type, Post.game_types.to_a, {}, { class: "text-input" } %>
 </div>
 
-<div class="text-field">
-  <%= form.label :date %>
-  <%= form.date_field :date %>
+<div class="form-field">
+  <%= label_for form, :city, class: "label" %>
+  <%= form.text_field :city, class: "text-input" %>
 </div>
 
-<div class="select-field">
-  <%= form.label :skill_level %>
-  <%= form.select :skill_level, Post.skill_levels.to_a, include_blank: true %>
+<div class="form-field">
+  <%= label_for form, :date, class: "label" %>
+  <%= form.date_field :date, class: "text-input" %>
+</div>
+
+<div class="form-field">
+  <%= label_for form, :players_needed, class: "label" %>
+  <%= form.text_field :players_needed, class: "text-input" %>
+</div>
+
+<div class="form-field">
+  <%= label_for form, :skill_level, class: "label" %>
+  <%= form.select :skill_level, Post.skill_levels.to_a, { include_blank: true }, { class: "text-input" } %>
+</div>
+
+<div class="form-field">
+  <%= label_for form, :description, class: "label" %>
+  <%= form.text_area :description, class: "text-input", rows: 4 %>
 </div>

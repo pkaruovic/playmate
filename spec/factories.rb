@@ -4,13 +4,15 @@ FactoryBot.define do
   end
 
   factory :user do
-    first_name { "John" }
-    last_name { "Doe" }
+    name { "John Doe" }
     email
     password { "password" }
   end
 
   factory :post do
+    game { "Football" }
+    game_type { "sport" }
+    players_needed { 2 }
     description { "Test post" }
     city { "Belgrade" }
     date { Date.today }
