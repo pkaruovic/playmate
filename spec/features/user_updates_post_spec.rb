@@ -6,7 +6,7 @@ feature "user updates post" do
   scenario "with valid attributes" do
     user = create(:user)
     post = create(:post, user: user)
-    date = 3.days.from_now.to_date.iso8601
+    date = 3.days.from_now.to_date.strftime("%e %B, %Y")
 
     visit edit_post_path(post, as: user)
     fill_in "Game", with: "Catan"

@@ -16,6 +16,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'clearance'
 gem 'kaminari'
 gem 'gravatarify', '~> 3.1.0'
+gem 'jquery-rails'
+gem 'pickadate-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
