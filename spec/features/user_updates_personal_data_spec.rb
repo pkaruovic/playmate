@@ -8,7 +8,10 @@ feature "user updates personal data" do
 
     visit edit_profile_path(user, as: user)
     fill_in "Name", with: "Mila Kunis"
-    fill_in "Birth date", with: "14-9-1983"
+    fill_in "Email", with: "mila.kunis@gmail.com"
+    select "September", from: "user_profile[month_of_birth]"
+    fill_in "user_profile[day_of_birth]", with: 14
+    fill_in "user_profile[year_of_birth]", with: 1983
     fill_in "Biography", with: "I'm young movie star."
     click_button "Save"
 
@@ -18,6 +21,20 @@ feature "user updates personal data" do
       expect(page).to have_content "14 Sep, 1983"
       expect(page).to have_content "I'm young movie star."
     end
+  end
+
+  scenario "validation errors are shown" do
+    user = create(:user)
+
+    visit edit_profile_path(user, as: user)
+    fill_in "Email", with: nil
+    select "", from: "user_profile[month_of_birth]"
+    fill_in "user_profile[day_of_birth]", with: 12
+    fill_in "user_profile[year_of_birth]", with: 1992
+    click_button "Save"
+
+    expect(page).to have_content "Email is invalid"
+    expect(page).to have_content "Birth date is invalid"
   end
 
   scenario "fails if it is another user" do

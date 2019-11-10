@@ -9,10 +9,12 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @user_profile = UserProfile.new(@user)
   end
 
   def update
-    if @user.update(user_params)
+    @user_profile = UserProfile.new(@user)
+    if @user_profile.update(profile_params)
       flash[:note] = "Profile updated"
       redirect_to profile_path(@user)
     else
@@ -22,8 +24,8 @@ class ProfilesController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :gender, :biography, :birth_date)
+  def profile_params
+    params.require(:user_profile).permit(:name, :email, :biography, :day_of_birth, :month_of_birth, :year_of_birth)
   end
 
   def set_user

@@ -15,7 +15,7 @@
 
 <div class="form-field">
   <%= label_for form, :date, class: "label" %>
-  <%= form.date_field :date, class: "text-input" %>
+  <%= form.text_field :date, value: form.object.date.try(:strftime,"%e %B, %Y"), class: "text-input", data: { provide: "datepicker" } %>
 </div>
 
 <div class="form-field">
