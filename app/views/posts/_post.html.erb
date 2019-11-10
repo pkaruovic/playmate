@@ -56,10 +56,12 @@
 
     <% if !post.belongs_to?(current_user) && !post.interested_users.include?(current_user) %>
       <%= form_tag post_interested_users_path(post), remote: true do %>
-        <%= submit_tag "Interested", class: "link-button" %>
+        <%= submit_tag "Interested", class: "link-button", data: { test: "add_interested_user_btn" } %>
       <% end %>
     <% elsif post.interested_users.include?(current_user) %>
-      <div class="f4 bold">✓ Interested</div>
+      <%= form_tag post_interested_user_path(post, current_user), method: :delete, remote: true do %>
+        <%= submit_tag "✓ Interested", class: "link-button", data: { test: "remove_interested_user_btn" } %>
+      <% end %>
     <% end %>
   </div>
 </div>

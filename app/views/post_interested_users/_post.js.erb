@@ -1,0 +1,7 @@
+(function() {
+  const postNode = Rails.$("#post-<%= @post.id %>")[0];
+  const div = document.createElement("div");
+  div.innerHTML = "<%= escape_javascript(render partial: "posts/post", object: @post) %>";
+  const newPostNode = div.firstChild;
+  postNode.parentNode.replaceChild(newPostNode, postNode);
+})()
