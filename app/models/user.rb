@@ -9,4 +9,13 @@ class User < ApplicationRecord
   enum genders: { male: "male", female: "female" }
 
   validates :name, presence: true, length: { minimum: 2, maximum: 70 }
+  validate :validate_birth_date, unless: ->{ birth_date.nil? }
+
+  private
+
+  def validate_birth_date
+    if birth_date.year < 1920 || birth_date >= Date.today
+      errors.add(:birth_date, "is invalid")
+    end
+  end
 end
