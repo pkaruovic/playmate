@@ -54,12 +54,11 @@
       <% end %>
     <% end %>
 
-    <% if !post.belongs_to?(current_user) && !current_user.interesting_posts.include?(post)  %>
-      <%= form_tag interesting_posts_path, remote: true do %>
-        <%= hidden_field :data, :post_id, value: post.id %>
+    <% if !post.belongs_to?(current_user) && !post.interested_users.include?(current_user) %>
+      <%= form_tag post_interested_users_path(post), remote: true do %>
         <%= submit_tag "Interested", class: "link-button" %>
       <% end %>
-    <% elsif current_user.interesting_posts.include?(post)  %>
+    <% elsif post.interested_users.include?(current_user) %>
       <div class="f4 bold">✓ Interested</div>
     <% end %>
   </div>
