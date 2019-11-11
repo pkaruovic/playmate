@@ -1,4 +1,4 @@
-<div id="<%= "post-#{post.id}" %>" class="post" data-test="<%= "post-#{post.id}" %>">
+<div id="<%= "post-#{post.id}" %>" class="box p-3 mb-4" data-test="<%= "post-#{post.id}" %>">
   <div class="d-flex flex-align-center mb-2">
     <div class="mr-2">
       <%= render partial: "users/user_avatar", locals: { user: post.user } %>

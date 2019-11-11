@@ -1,3 +1,7 @@
 <div class="posts-list">
-  <%= render partial: "post", object: @post %>
+  <div class="mb-4">
+    <%= render partial: "post", object: @post %>
+  </div>
+
+  <%= render partial: "post_interested_users/user_list" %>
 </div>
