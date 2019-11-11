@@ -114,6 +114,10 @@ a {
   padding: 24px;
 }
 
+.p-5 {
+  padding: 32px;
+}
+
 .d-flex {
   display: flex;
 }
@@ -176,4 +180,11 @@ a {
 
 .notice {
   color: $red;
+}
+
+.box {
+  background: $white;
+  border-radius: $box-radius;
+  box-shadow: $box-shadow;
+  box-sizing: border-box;
 }
