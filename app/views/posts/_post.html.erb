@@ -44,6 +44,10 @@
 
   <div class="d-flex flex-align-center">
     <% if post.belongs_to?(current_user) %>
+      <% unless current_page? post_path(post) %>
+        <%= link_to "Open", post_path(post), class: "f4 bold mr-3" %>
+      <% end %>
+
       <%= link_to "Edit", edit_post_path(post), class: "f4 bold mr-3" %>
 
       <%= form_for post do |form| %>
