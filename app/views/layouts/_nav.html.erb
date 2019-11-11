@@ -7,5 +7,5 @@
     <%= link_to "Profile", profile_path(current_user), class: "nav-link" %>
     <%= link_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
   </div>
-  <%= gravatar_tag user.email, html: { class: "user-avatar" } %>
+  <%= render partial: "users/user_avatar", locals: { user: current_user } %>
 </nav>
