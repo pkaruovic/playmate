@@ -40,3 +40,70 @@
   height: 40px;
   border-radius: 50%;
 }
+
+.notification-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: $red;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.notification-indicator.d-none {
+  display: none;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.notifications {
+  width: 400px;
+  max-height: 460px;
+  overflow: scroll;
+}
+
+.popup-wrapper {
+  position: absolute;
+  top: 50px;
+  left: -150px;
+}
+
+.popup {
+  position: relative;
+  background: $white;
+  border-radius: $small-border-radius;
+  box-shadow: $box-shadow;
+}
+
+.popup:after,
+.popup:before {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.popup:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-bottom-color: $white;
+  border-width: 8px;
+  margin-left: -8px;
+}
+
+.popup:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-width: 9px;
+  margin-left: -9px;
+}

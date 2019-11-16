@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount ActionCable.server => "/cable"
 
   root to: "homes#show"
 
@@ -17,5 +18,8 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :edit, :update]
   resources :posts, only: [:index, :show, :new, :edit, :update, :create] do
     resources :interested_users, controller: :post_interested_users, only: [:create, :destroy]
+  end
+  resources :notifications, only: [:index] do
+    post "mark_as_read", on: :collection
   end
 end

@@ -1,0 +1,20 @@
+(function(){
+  $("#notifications-pagination-link").remove();
+  $("#notifications").append("<%= escape_javascript(render partial: "notifications") %>");
+  markNotificationsAsRead(<%= @notifications.select{ |n| !n.seen }.map(&:id) %>);
+})()
+
+function markNotificationsAsRead(ids) {
+  if (ids.length > 0) {
+    $.ajax({
+      method: "POST",
+      url: "<%= mark_as_read_notifications_path %>",
+      data: {
+        ids: ids
+      },
+      error: function(e){
+        console.error(e);
+      }
+    })
+  }
+}

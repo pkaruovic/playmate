@@ -4,7 +4,8 @@ class User < ApplicationRecord
   include Clearance::User
 
   has_many :posts, dependent: :destroy
-  has_and_belongs_to_many :interesting_posts, class_name: 'Post'
+  has_and_belongs_to_many :interesting_posts, class_name: "Post"
+  has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
 
   enum genders: { male: "male", female: "female" }
 

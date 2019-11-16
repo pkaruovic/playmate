@@ -1,0 +1,10 @@
+<%= link_to notification.action_path, class: "d-flex flex-column p-2 notification-wrapper" do %>
+  <div class="d-flex flex-align-end f4 wsp">
+    <%= notification_text(notification) %>
+  </div>
+
+  <span class="f6 gray">
+    <%= time_ago_in_words notification.created_at %>
+    ago
+  </span>
+<% end %>

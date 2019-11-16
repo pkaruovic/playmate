@@ -7,9 +7,7 @@ class PostInterestedUsersController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @post.interested_users << current_user
-    UserMailer.with(user: @post.user, post: @post, playmate: current_user)
-      .potential_playmate_email
-      .deliver_later
+    notify_post_owner
     respond_to :js
   end
 
@@ -20,6 +18,22 @@ class PostInterestedUsersController < ApplicationController
   end
 
   private
+
+  def notify_post_owner
+    notification = Notification.create!(
+      recipient: @post.user,
+      actor: current_user,
+      text: "*#{current_user.name}* is interested in your *post*",
+      action_path: post_path(@post)
+    )
+    NotificationsChannel.broadcast_to(
+      notification.recipient,
+      unseen_notifications_count: notification.recipient.notifications.unseen.count
+    )
+    UserMailer.with(user: @post.user, post: @post, playmate: current_user)
+      .potential_playmate_email
+      .deliver_later
+  end
 
   def validate_user
     if current_user.id != params[:id].to_i
