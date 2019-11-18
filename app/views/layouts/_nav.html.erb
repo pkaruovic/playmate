@@ -8,7 +8,7 @@
     <span class="position-relative d-flex flex-align-center">
       <%= link_to "Notifications", notifications_path, remote: true, onclick: "showNotificationsPopup()", class: "nav-link" %>
 
-      <div id="notification-indicator" class="notification-indicator f7 bold <%= current_user.notifications.unseen.count == 0 ? "d-none" : nil %>">
+      <div id="notification-indicator" data-test="notification_indicator" class="notification-indicator f7 bold <%= current_user.notifications.unseen.count == 0 ? "d-none" : nil %>">
         <%= current_user.notifications.unseen.count %>
       </div>
 
@@ -16,7 +16,7 @@
 
       <div id="notifications-popup" class="popup-wrapper d-none">
         <div class="popup p-3">
-          <div id="notifications" class="notifications"></div>
+          <div id="notifications" data-test="notification_list" class="notifications"></div>
         </div>
       </div>
     </span>

@@ -18,4 +18,11 @@ FactoryBot.define do
     date { Date.today }
     association :user, factory: :user
   end
+
+  factory :notification do
+    association :recipient, factory: :user
+    association :actor, factory: :user
+    text { "Test notification" }
+    action_path { "/" }
+  end
 end
