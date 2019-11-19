@@ -1,0 +1,7 @@
+.notification-wrapper {
+  border-bottom: solid 1px $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

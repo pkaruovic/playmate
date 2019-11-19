@@ -1,6 +1,8 @@
-<div id="<%= "post-#{post.id}" %>" class="post" data-test="<%= "post-#{post.id}" %>">
+<div id="<%= "post-#{post.id}" %>" class="box p-3 mb-4" data-test="<%= "post-#{post.id}" %>">
   <div class="d-flex flex-align-center mb-2">
-    <%= gravatar_tag post.user.email, html: { class: "user-avatar mr-2" } %>
+    <div class="mr-2">
+      <%= render partial: "users/user_avatar", locals: { user: post.user } %>
+    </div>
     <div class="d-flex flex-column left-padding">
       <%= link_to post.user.name, profile_path(post.user), data: { test: "post_owner" }, class: "f4 bold" %>
       <span class="f6 gray">
@@ -42,6 +44,10 @@
 
   <div class="d-flex flex-align-center">
     <% if post.belongs_to?(current_user) %>
+      <% unless current_page? post_path(post) %>
+        <%= link_to "Open", post_path(post), class: "f4 bold mr-3" %>
+      <% end %>
+
       <%= link_to "Edit", edit_post_path(post), class: "f4 bold mr-3" %>
 
       <%= form_for post do |form| %>
@@ -54,13 +60,14 @@
       <% end %>
     <% end %>
 
-    <% if !post.belongs_to?(current_user) && !current_user.interesting_posts.include?(post)  %>
-      <%= form_tag interesting_posts_path, remote: true do %>
-        <%= hidden_field :data, :post_id, value: post.id %>
-        <%= submit_tag "Interested", class: "link-button" %>
+    <% if !post.belongs_to?(current_user) && !post.interested_users.include?(current_user) %>
+      <%= form_tag post_interested_users_path(post), remote: true do %>
+        <%= submit_tag "Interested", class: "link-button", data: { test: "add_interested_user_btn" } %>
       <% end %>
-    <% elsif current_user.interesting_posts.include?(post)  %>
-      <div class="f4 bold">✓ Interested</div>
+    <% elsif post.interested_users.include?(current_user) %>
+      <%= form_tag post_interested_user_path(post, current_user), method: :delete, remote: true do %>
+        <%= submit_tag "✓ Interested", class: "link-button", data: { test: "remove_interested_user_btn" } %>
+      <% end %>
     <% end %>
   </div>
 </div>

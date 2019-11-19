@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_112336) do
+ActiveRecord::Schema.define(version: 2019_11_14_204537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "recipient_id"
+    t.bigint "actor_id"
+    t.string "text", null: false
+    t.string "action_path", null: false
+    t.boolean "seen", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
@@ -54,4 +66,6 @@ ActiveRecord::Schema.define(version: 2019_11_03_112336) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "notifications", "users", column: "actor_id"
+  add_foreign_key "notifications", "users", column: "recipient_id"
 end

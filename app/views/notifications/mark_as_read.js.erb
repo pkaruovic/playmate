@@ -1,0 +1,6 @@
+(function() {
+  <% if current_user.notifications.unseen.count == 0 %>
+    $('#notification-indicator').addClass('d-none');
+  <% end %>
+    $('#notification-indicator').text(<%= current_user.notifications.unseen.count %>);
+})()

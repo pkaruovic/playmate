@@ -1,8 +1,8 @@
 body {
   margin: 0;
   background: $bg-color;
-  font-family: 'Graphik', 'Helvetica Neue', helvetica, 'Apple Color Emoji',
-    arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif;
 }
 
 h2 {
@@ -19,6 +19,10 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.f7 {
+  font-size: 10px;
 }
 
 .f6 {
@@ -114,6 +118,14 @@ a {
   padding: 24px;
 }
 
+.p-5 {
+  padding: 32px;
+}
+
+.wsp {
+  white-space: pre;
+}
+
 .d-flex {
   display: flex;
 }
@@ -126,12 +138,24 @@ a {
   align-items: center;
 }
 
+.flex-align-end {
+  align-items: flex-end;
+}
+
 .flex-justify-between {
   justify-content: space-between;
 }
 
+.flex-justify-center {
+  justify-content: center;
+}
+
 .flex-auto {
   flex: 1 1 auto;
+}
+
+.d-none {
+  display: none;
 }
 
 .content {
@@ -176,4 +200,19 @@ a {
 
 .notice {
   color: $red;
+}
+
+.box {
+  background: $white;
+  border-radius: $box-radius;
+  box-shadow: $box-shadow;
+  box-sizing: border-box;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
