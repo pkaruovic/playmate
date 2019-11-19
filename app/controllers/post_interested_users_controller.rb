@@ -8,9 +8,6 @@ class PostInterestedUsersController < ApplicationController
     @post = Post.find(params[:post_id])
     @post.interested_users << current_user
     notify_post_owner("*#{current_user.name}* is interested in your *post*")
-    UserMailer.with(user: @post.user, post: @post, playmate: current_user)
-      .potential_playmate_email
-      .deliver_later
 
     respond_to :js
   end

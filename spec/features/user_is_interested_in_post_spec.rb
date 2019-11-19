@@ -15,14 +15,6 @@ feature "user is interested in post" do
     end
 
     within("[data-test=post-#{post.id}]") { expect(page).to have_selector(:css, "[data-test=remove_interested_user_btn]") }
-    expect_email_to_be_delivered(to: post_owner.email, subject: "Someone is interested in your post")
-  end
-
-  def expect_email_to_be_delivered(to:, subject:)
-    expect(ActionMailer::Base.deliveries).not_to be_empty
-    email = ActionMailer::Base.deliveries.last
-    expect(email.to).to include to
-    expect(email.subject).to eq subject
   end
 end
 
