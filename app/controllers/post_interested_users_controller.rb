@@ -7,32 +7,39 @@ class PostInterestedUsersController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @post.interested_users << current_user
-    notify_post_owner
+    notify_post_owner("*#{current_user.name}* is interested in your *post*")
+    UserMailer.with(user: @post.user, post: @post, playmate: current_user)
+      .potential_playmate_email
+      .deliver_later
+
     respond_to :js
   end
 
   def destroy
     @post = Post.find(params[:post_id])
     @post.interested_users.delete(params[:id])
+    notify_post_owner("*#{current_user.name}* is no longer interested in your *post*")
+
     respond_to :js
   end
 
   private
 
-  def notify_post_owner
+  def notify_post_owner(text)
     notification = Notification.create!(
       recipient: @post.user,
       actor: current_user,
-      text: "*#{current_user.name}* is interested in your *post*",
+      text: text,
       action_path: post_path(@post)
     )
+    broadcast_unseen_notifications_count(notification.recipient)
+  end
+
+  def broadcast_unseen_notifications_count(recipient)
     NotificationsChannel.broadcast_to(
-      notification.recipient,
-      unseen_notifications_count: notification.recipient.notifications.unseen.count
+      recipient,
+      unseen_notifications_count: recipient.notifications.unseen.count
     )
-    UserMailer.with(user: @post.user, post: @post, playmate: current_user)
-      .potential_playmate_email
-      .deliver_later
   end
 
   def validate_user
