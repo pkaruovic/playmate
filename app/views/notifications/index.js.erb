@@ -1,6 +1,6 @@
 (function(){
   $("#notifications-pagination-link").remove();
-  $("#notifications").append("<%= escape_javascript(render partial: "notifications") %>");
+  $("#notification-list").append("<%= escape_javascript(render partial: "notifications") %>");
   markNotificationsAsRead(<%= @notifications.select{ |n| !n.seen }.map(&:id) %>);
 })()
 

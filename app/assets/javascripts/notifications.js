@@ -6,5 +6,5 @@ function showNotificationsPopup() {
 function hideNotificationsPopup() {
   $('#notifications-popup').hide();
   $('#notifications-popup-overlay').hide();
-  $('#notifications').html('');
+  $('#notification-list').html('');
 }
