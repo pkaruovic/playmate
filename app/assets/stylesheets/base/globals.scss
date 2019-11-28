@@ -51,6 +51,10 @@ a {
   color: $blue;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .gray {
   color: #6d6d6d;
 }
@@ -157,6 +161,14 @@ a {
 
 .d-none {
   display: none;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
 }
 
 .content {
