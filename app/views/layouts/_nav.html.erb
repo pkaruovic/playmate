@@ -5,24 +5,25 @@
     <%= link_to "New post", new_post_path, class: "nav-link" %>
     <%= link_to "My posts", posts_path, class: "nav-link" %>
 
-    <span class="position-relative d-flex flex-align-center">
-      <%= link_to "Notifications", notifications_path, remote: true, onclick: "showNotificationsPopup()", class: "nav-link" %>
+    <span class="position-relative d-flex flex-align-center" data-popover="notifications-popover">
+      <%= link_to "Notifications", notifications_path, remote: true, class: "nav-link" %>
 
       <div id="notification-indicator" data-test="notification_indicator" class="notification-indicator f7 bold <%= current_user.notifications.unseen.count == 0 ? "d-none" : nil %>">
         <%= current_user.notifications.unseen.count %>
       </div>
-
-      <div id="notifications-popup-overlay" class="overlay d-none" onclick="hideNotificationsPopup()"></div>
-
-      <div id="notifications-popup" class="popup-wrapper d-none">
-        <div class="popup p-3">
-          <div id="notification-list" data-test="notification_list" class="notification-list"></div>
-        </div>
-      </div>
     </span>
-
-    <%= link_to "Profile", profile_path(current_user), class: "nav-link" %>
-    <%= link_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
   </div>
-  <%= render partial: "users/user_avatar", locals: { user: current_user } %>
+
+  <div class="p-3" data-popover-id="notifications-popover">
+    <div id="notification-list" data-test="notification_list" class="notification-list"></div>
+  </div>
+
+  <div class="pointer" data-popover="user-actions-popover">
+    <%= render partial: "users/user_avatar", locals: { user: current_user } %>
+  </div>
+
+  <div data-popover-id="user-actions-popover" class="user-actions-popover d-flex flex-column p-3" data-popover-align="right">
+    <%= link_to "Profile", profile_path(current_user), class: "f5 mb-2" %>
+    <%= link_to "Log out", sign_out_path, method: :delete, class: "f5" %>
+  </div>
 </nav>
