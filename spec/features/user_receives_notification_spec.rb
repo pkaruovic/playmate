@@ -26,7 +26,7 @@ feature "user receives notification" do
     expect(page).to have_current_path notification.action_path
   end
 
-  feature "user opens notifications popup" do
+  feature "user opens notifications popover" do
     scenario "unseen notifications count is reduced", js: true do
       user = create(:user)
       create_list(:notification, 12, recipient: user)

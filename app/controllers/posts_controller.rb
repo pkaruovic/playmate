@@ -4,7 +4,9 @@ class PostsController < ApplicationController
   before_action :require_login
 
   def index
-    @posts = current_user.posts.by_date.page(params[:page]).per(10)
+    @posts = current_user.posts
+      .includes(:interested_users).by_date
+      .page(params[:page]).per(10)
   end
 
   def show
