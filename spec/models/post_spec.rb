@@ -8,6 +8,7 @@ RSpec.describe Post, type: :model do
   it { should validate_presence_of(:game) }
   it { should validate_presence_of(:game_type) }
   it { should validate_presence_of(:players_needed) }
+  it { should have_many(:join_requests).dependent(:destroy) }
 
   describe "#belongs_to" do
     it "checks if post belongs to user" do

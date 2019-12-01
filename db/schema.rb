@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_204537) do
+ActiveRecord::Schema.define(version: 2019_12_01_124219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "join_requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "post_id"
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_join_requests_on_post_id"
+    t.index ["user_id"], name: "index_join_requests_on_user_id"
+  end
 
   create_table "notifications", force: :cascade do |t|
     t.bigint "recipient_id"
@@ -66,6 +76,8 @@ ActiveRecord::Schema.define(version: 2019_11_14_204537) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "join_requests", "posts"
+  add_foreign_key "join_requests", "users"
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
 end

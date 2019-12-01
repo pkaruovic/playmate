@@ -2,7 +2,8 @@
 
 class Post < ApplicationRecord
   belongs_to :user
-  has_and_belongs_to_many :interested_users, class_name: 'User'
+  has_many :join_requests, dependent: :destroy
+  has_many :interested_users, through: :join_requests, source: :user
 
   enum skill_level: {
     beginner: "beginner",
