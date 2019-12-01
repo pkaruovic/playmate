@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class PostInterestedUsersController < ApplicationController
+class JoinRequestsController < ApplicationController
   before_action :require_login
-  before_action :validate_user, only: [:destroy]
 
   def create
     @post = Post.find(params[:post_id])
-    @post.interested_users << current_user
+    @post.join_requests.create(user: current_user)
     notify_post_owner("*#{current_user.name}* is interested in your *post*")
 
     respond_to :js
@@ -14,7 +13,10 @@ class PostInterestedUsersController < ApplicationController
 
   def destroy
     @post = Post.find(params[:post_id])
-    @post.interested_users.delete(params[:id])
+    @join_request = @post.join_requests.find(params[:id])
+    not_found unless @join_request.user == current_user
+
+    @join_request.destroy
     notify_post_owner("*#{current_user.name}* is no longer interested in your *post*")
 
     respond_to :js
@@ -37,11 +39,5 @@ class PostInterestedUsersController < ApplicationController
       recipient,
       unseen_notifications_count: recipient.notifications.unseen.count
     )
-  end
-
-  def validate_user
-    if current_user.id != params[:id].to_i
-      not_found
-    end
   end
 end

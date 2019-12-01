@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe PostInterestedUsersController, type: :controller do
+describe JoinRequestsController, type: :controller do
   describe "#create" do
-    it "adds user to interested users and notifies post owner" do
+    it "creates join request and notifies post owner" do
       user = create(:user, name: "Mila Kunis")
       post_owner = create(:user)
       subject = create(:post, user: post_owner)
@@ -17,7 +17,11 @@ describe PostInterestedUsersController, type: :controller do
         .with(unseen_notifications_count: 1)
 
       expect(response.status).to eq 200
-      expect(subject.interested_users).to eq [user]
+      expect(subject.join_requests.count).to eq 1
+      expect(subject.join_requests.first).to have_attributes(
+        user: user,
+        status: "pending"
+      )
       expect(post_owner.notifications.count).to eq 1
       expect(post_owner.notifications.first).to have_attributes(
         actor: user,
@@ -28,21 +32,25 @@ describe PostInterestedUsersController, type: :controller do
   end
 
   describe "#destroy" do
-    it "deletes user from interested users and notifies post owner" do
+    it "destroys join request and notifies post owner" do
       user = create(:user, name: "Mila Kunis")
       post_owner = create(:user)
       subject = create(:post, user: post_owner)
-      subject.interested_users << user
+      join_request = create(:join_request, post: subject, user: user)
       sign_in_as(user)
 
       expect{
-        delete(:destroy, params: { post_id: subject.id, id: user.id }, format: :js)
+        delete(
+          :destroy,
+          params: { post_id: subject.id, id: join_request.id },
+          format: :js
+        )
       }.to have_broadcasted_to(post_owner)
         .from_channel(NotificationsChannel)
         .with(unseen_notifications_count: 1)
 
       expect(response.status).to eq 200
-      expect(subject.interested_users.count).to eq 0
+      expect(subject.join_requests.count).to eq 0
       expect(post_owner.notifications.count).to eq 1
       expect(post_owner.notifications.first).to have_attributes(
         actor: user,
@@ -55,19 +63,19 @@ describe PostInterestedUsersController, type: :controller do
       user = create(:user)
       post_owner = create(:user)
       subject = create(:post, user: post_owner)
-      subject.interested_users << user
+      join_request = create(:join_request, post: subject, user: user)
 
       sign_in_as(post_owner)
       post(
         :destroy,
         params: {
           post_id: subject.id,
-          id: user.id
+          id: join_request.id
         }
       )
 
       expect(response.status).to eq 404
-      expect(subject.interested_users.count).to eq 1
+      expect(subject.join_requests.count).to eq 1
     end
   end
 end

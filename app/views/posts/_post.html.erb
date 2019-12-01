@@ -60,14 +60,18 @@
       <% end %>
     <% end %>
 
-    <% if !post.belongs_to?(current_user) && !post.interested_users.include?(current_user) %>
-      <%= form_tag post_interested_users_path(post), remote: true do %>
-        <%= submit_tag "Interested", class: "link-button", data: { test: "add_interested_user_btn" } %>
-      <% end %>
-    <% elsif post.interested_users.include?(current_user) %>
-      <%= form_tag post_interested_user_path(post, current_user), method: :delete, remote: true do %>
-        <%= submit_tag "✓ Interested", class: "link-button", data: { test: "remove_interested_user_btn" } %>
+    <% if !post.belongs_to?(current_user) %>
+      <% join_request = post.join_requests.find_by(user: current_user) %>
+      <% if join_request.present? %>
+        <%= form_tag post_join_request_path(post, join_request), method: :delete, remote: true do %>
+          <%= submit_tag "✓ Interested", class: "link-button", data: { test: "remove_join_request_btn" } %>
+        <% end %>
+      <% else %>
+        <%= form_tag post_join_requests_path(post), remote: true do %>
+          <%= submit_tag "Interested", class: "link-button", data: { test: "add_join_request_btn" } %>
+        <% end %>
       <% end %>
     <% end %>
+
   </div>
 </div>
