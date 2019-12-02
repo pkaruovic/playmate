@@ -1,7 +1,9 @@
-<div class="posts-list">
-  <h1>Posts</h1>
-  <% @posts.each do |post| %>
-    <%= render partial: "posts/post", object: post %>
-  <% end %>
-  <%= paginate @posts %>
-</div>
+<% if @posts.empty? %>
+  <%= render partial: "empty_state" %>
+<% else %>
+  <div class="posts-list">
+    <h1>Posts</h1>
+    <%= render partial: "posts/post", collection: @posts %>
+    <%= paginate @posts %>
+  </div>
+<% end %>
