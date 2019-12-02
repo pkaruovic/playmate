@@ -9,6 +9,16 @@
   background: $bg-color;
 }
 
+.nav-left {
+  width: 80px;
+}
+
+.nav-right {
+  width: 80px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .nav-app-name {
   font-size: $medium;
   font-weight: 600;
