@@ -4,5 +4,5 @@ class JoinRequest < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
-  validates :status, inclusion: { in: %w[pending accepted] }
+  enum status: { pending: "pending", accepted: "accepted" }
 end
