@@ -3,5 +3,12 @@
     <%= render partial: "post", object: @post %>
   </div>
 
-  <%= render partial: "join_requests/user_list" %>
+  <% if @post.join_requests.size > 0 %>
+    <div class="f3 bold mb-2">Interested</div>
+
+    <div class="box pl-3 pr-3" data-test="join_requests">
+      <%= render @post.join_requests.includes(:user).sort_by{ |r| r.user.name } %>
+    </div>
+  <% end %>
 </div>
+

@@ -24,4 +24,9 @@ class Post < ApplicationRecord
   def belongs_to?(user)
     self.user.id == user.id
   end
+
+  # TODO: find a better name
+  def players_missing
+    players_needed - join_requests.accepted.size
+  end
 end

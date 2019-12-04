@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:show, :edit, :update]
   resources :posts, only: [:index, :show, :new, :edit, :update, :create] do
-    resources :join_requests, only: [:create, :destroy]
+    resources :join_requests, only: [:create, :update, :destroy]
   end
   resources :notifications, only: [:index] do
     post "mark_as_read", on: :collection

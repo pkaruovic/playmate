@@ -20,4 +20,14 @@ RSpec.describe Post, type: :model do
       expect(post.belongs_to?(not_owner)).to be false
     end
   end
+
+  describe "#players_missing" do
+    it "is remainder of #players_needed and number of accepted join requests" do
+      post = create(:post, players_needed: 3)
+      create(:join_request, post: post, status: "accepted")
+      create(:join_request, post: post, status: "pending")
+
+      expect(post.players_missing).to eq 2
+    end
+  end
 end

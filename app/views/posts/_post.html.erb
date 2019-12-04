@@ -26,7 +26,7 @@
     </div>
     <div class="d-flex flex-align-center mr-3">
       <%= embedded_svg "svg/person.svg", class: "mr-2" %>
-      <span data-test="post_players_needed"><%= post.players_needed %></span>
+      <span data-test="post_players_needed"><%= post.players_missing %></span>
     </div>
     <% if post.skill_level.present? %>
       <div class="d-flex flex-align-center mr-3">

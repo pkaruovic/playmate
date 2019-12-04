@@ -31,6 +31,68 @@ describe JoinRequestsController, type: :controller do
     end
   end
 
+  describe "#update" do
+    it "notifies user when join request is accepted" do
+      user = create(:user, name: "Darth Vader")
+      applicant = create(:user)
+      subject = create(:post, user: user)
+      join_request = create(:join_request, post: subject, user: applicant, status: "pending")
+      sign_in_as(user)
+
+      expect{
+        patch(
+          :update,
+          params: {
+            post_id: subject.id,
+            id: join_request.id,
+            join_request: {
+              status: "accepted"
+            }
+          },
+          format: :js
+        )
+      }.to have_broadcasted_to(applicant)
+        .from_channel(NotificationsChannel)
+        .with(unseen_notifications_count: 1)
+
+      expect(response.status).to eq 200
+      expect(join_request.reload).to be_accepted
+      expect(applicant.notifications.count).to eq 1
+      expect(applicant.notifications.first).to have_attributes(
+        actor: user,
+        text: "*#{user.name}* accepted you for a *game*",
+        action_path: post_path(subject)
+      )
+    end
+
+    it "does not notify user when post is reverted to pending" do
+      user = create(:user, name: "Darth Vader")
+      applicant = create(:user)
+      subject = create(:post, user: user)
+      join_request = create(:join_request, post: subject, user: applicant, status: "accepted")
+      sign_in_as(user)
+
+      expect{
+        patch(
+          :update,
+          params: {
+            post_id: subject.id,
+            id: join_request.id,
+            join_request: {
+              status: "pending"
+            }
+          },
+          format: :js
+        )
+      }.not_to have_broadcasted_to(applicant)
+        .from_channel(NotificationsChannel)
+
+      expect(response.status).to eq 200
+      expect(join_request.reload).to be_pending
+      expect(applicant.notifications.count).to eq 0
+    end
+  end
+
   describe "#destroy" do
     it "destroys join request and notifies post owner" do
       user = create(:user, name: "Mila Kunis")
