@@ -20,6 +20,6 @@ Rails.application.routes.draw do
     resources :join_requests, only: [:create, :update, :destroy]
   end
   resources :notifications, only: [:index] do
-    post "mark_as_read", on: :collection
+    patch "mark_as_read", on: :collection
   end
 end

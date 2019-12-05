@@ -1,25 +1,5 @@
-(function(){
-  <% if @notifications.first_page? %>
-    $("#notification-list").html("<%= escape_javascript(render partial: "notifications") %>")
-  <% else %>
-    $("#notifications-pagination-link").remove();
-    $("#notification-list").append("<%= escape_javascript(render partial: "notifications") %>");
-  <% end %>
-
-  markNotificationsAsRead(<%= @notifications.select{ |n| !n.seen }.map(&:id) %>);
-})()
-
-function markNotificationsAsRead(ids) {
-  if (ids.length > 0) {
-    $.ajax({
-      method: "POST",
-      url: "<%= mark_as_read_notifications_path %>",
-      data: {
-        ids: ids
-      },
-      error: function(e){
-        console.error(e);
-      }
-    })
-  }
-}
+<% if @notifications.first_page? %>
+    $("#notification-list").html("<%= j(render "notifications", notifications: @notifications) %>")
+<% else %>
+    $("#notification-list").append("<%= j(render "notifications", notifications: @notifications) %>");
+<% end %>

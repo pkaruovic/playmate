@@ -7,16 +7,21 @@
     <%= link_to "My posts", posts_path, class: "nav-link" %>
 
     <span class="position-relative d-flex flex-align-center" data-popover="notifications-popover">
-      <%= link_to "Notifications", notifications_path, remote: true, class: "nav-link" %>
+      <span class="nav-link" onclick="markNotificationsAsRead()" data-test="notifications_btn">Notifications</span>
 
-      <div id="notification-indicator" data-test="notification_indicator" class="notification-indicator f7 bold <%= current_user.notifications.unseen.count == 0 ? "d-none" : nil %>">
-        <%= current_user.notifications.unseen.count %>
+      <div id="notification-indicator"
+           data-test="notification_indicator"
+           class="notification-indicator f7 bold <%= current_user.notifications.unseen.size == 0 ? "d-none" : nil %>"
+           >
+           <%= current_user.notifications.unseen.size %>
       </div>
     </span>
   </div>
 
   <div class="p-3" data-popover-id="notifications-popover">
-    <div id="notification-list" data-test="notification_list" class="notification-list"></div>
+    <div id="notification-list" data-test="notification_list" class="notification-list">
+      <%= render "notifications/notifications", notifications: current_user_notifications %>
+    </div>
   </div>
 
   <div class="nav-right">
