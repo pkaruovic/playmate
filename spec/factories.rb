@@ -25,4 +25,9 @@ FactoryBot.define do
     text { "Test notification" }
     action_path { "/" }
   end
+
+  factory :join_request do
+    association :post, factory: :post
+    association :user, factory: :user
+  end
 end

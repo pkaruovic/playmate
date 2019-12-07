@@ -1,13 +1,16 @@
-<% if @notifications.empty? %>
+<% if notifications.empty? %>
   <div class="d-flex flex-justify-center f5">
     Once you get going, all your notifications will show up here.
   </div>
 <% else %>
-  <%= render partial: "notification", collection: @notifications %>
+  <%= render notifications %>
 
-  <% unless @notifications.last_page? %>
+  <% unless notifications.last_page? %>
     <div id="notifications-pagination-link" class="d-flex flex-justify-center m-2">
-      <%= link_to_next_page @notifications, "Load more", remote: true, class: "f5 bold" %>
+      <%= link_to_next_page notifications,
+        "Load more",
+        params: { controller: :notifications, action: :index },
+        remote: true, class: "f5 bold" %>
     </div>
   <% end %>
 <% end %>

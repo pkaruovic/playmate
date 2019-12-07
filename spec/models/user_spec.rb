@@ -9,6 +9,7 @@ describe User, type: :model do
   it { should validate_presence_of(:password) }
   it { should have_many(:posts).dependent(:destroy) }
   it { should have_many(:notifications).dependent(:destroy) }
+  it { should have_many(:join_requests).dependent(:destroy) }
 
   it "validates #birth_date" do
     user = described_class.new

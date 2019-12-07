@@ -1,0 +1,2 @@
+<%= render "rerender_post" %>
+$("#join-request-<%= @join_request.id %>").replaceWith("<%= j render @join_request %>")

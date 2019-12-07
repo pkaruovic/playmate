@@ -1,0 +1,26 @@
+<div id="join-request-<%= join_request.id %>" class="d-flex flex-align-center flex-justify-between pt-3 pb-3 bb-light" data-test="join_request_<%= join_request.id %>">
+  <div class="d-flex flex-align-center">
+    <div class="mr-2">
+      <%= render partial: "users/user_avatar", locals: { user: join_request.user } %>
+    </div>
+    <%= link_to join_request.user.name, profile_path(join_request.user), class: "f4 bold" %>
+  </div>
+
+  <div class="d-flex flex-align-center">
+    <% if join_request.accepted? %>
+      <span class="badge">Accepted</span>
+    <% end %>
+
+    <% if join_request.accepted? %>
+      <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true, data: { "visible-to" => "owner" } do |f| %>
+        <%= f.hidden_field :status, value: JoinRequest.statuses[:pending] %>
+        <%= f.submit "Remove", class: "link-button ml-6" %>
+      <% end %>
+    <% else %>
+      <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true, data: { "visible-to" => "owner" } do |f| %>
+        <%= f.hidden_field :status, value: JoinRequest.statuses[:accepted] %>
+        <%= f.submit "Accept", class: "link-button ml-6" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

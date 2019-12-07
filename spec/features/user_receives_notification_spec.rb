@@ -16,7 +16,7 @@ feature "user receives notification" do
     visit root_path(as: user)
     expect(page).to have_css(notification_indicator_selector, visible: true, text: 1)
 
-    click_on "Notifications"
+    find(notifications_btn_selector).click
     expect(page).to have_css(notification_indicator_selector, visible: false, text: 0)
     within notification_list_selector do
       expect(page).to have_content notification.text
@@ -34,9 +34,13 @@ feature "user receives notification" do
       visit root_path(as: user)
       expect(page).to have_css(notification_indicator_selector, visible: true, text: 12)
 
-      click_on "Notifications"
-      expect(page).to have_css(notification_indicator_selector, visible: true, text: 2)
+      find(notifications_btn_selector).click
+      expect(page).to have_css(notification_indicator_selector, visible: true, text: 2, exact_text: true)
     end
+  end
+
+  def notifications_btn_selector
+    "[data-test=notifications_btn]"
   end
 
   def notification_list_selector

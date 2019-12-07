@@ -1,7 +1,15 @@
 <div class="posts-list">
   <div class="mb-4">
-    <%= render partial: "post", object: @post %>
+    <%= render @post %>
   </div>
 
-  <%= render partial: "post_interested_users/user_list" %>
+  <% if @post.join_requests.size > 0 %>
+    <div class="f3 bold mb-2">Interested</div>
+
+    <div class="box pl-3 pr-3" data-test="join_requests" data-owner-id="<%= @post.user.id %>">
+      <%# Template Dependency: join_requests/join_request %>
+      <%= render_sorted_join_request_list @post.join_requests %>
+   </div>
+  <% end %>
 </div>
+

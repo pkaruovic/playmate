@@ -1,6 +1,8 @@
-(function() {
-  <% if current_user.notifications.unseen.count == 0 %>
-    $('#notification-indicator').addClass('d-none');
-  <% end %>
-    $('#notification-indicator').text(<%= current_user.notifications.unseen.count %>);
-})()
+<% @notifications.each do |notification| %>
+    $('#<%= dom_id notification %>').replaceWith("<%= j(render notification) %>")
+<% end %>
+
+$('#notification-indicator').text(<%= current_user.notifications.unseen.size %>);
+<% if current_user.notifications.unseen.size == 0 %>
+  $('#notification-indicator').addClass('d-none');
+<% end %>

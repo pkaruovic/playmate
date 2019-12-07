@@ -1,4 +1,9 @@
-<%= link_to notification.action_path, class: "d-flex flex-column p-2 notification-wrapper" do %>
+<%= link_to notification.action_path,
+  id: dom_id(notification),
+  class: "d-flex flex-column p-2 notification-wrapper",
+  data: {
+    "notification-seen": notification.seen
+  } do %>
   <div class="d-flex flex-align-end f4 wsp">
     <%= notification_text(notification) %>
   </div>

@@ -1,21 +1,21 @@
-<div id="personal-data" class="center-content box p-4 d-flex">
-  <%= gravatar_tag @user.email, size: 150, html: { class: "user-profile-avatar mr-4" } %>
-  <div class="d-flex flex-column flex-auto">
-    <div class="d-flex flex-justify-between">
-      <div class="f3 bold"><%= @user.name %></div>
+<% cache ["user-profile", @user] do %>
+  <div id="personal-data" class="center-content box p-4 d-flex" data-owner-id="<%= @user.id %>">
+    <%= gravatar_tag @user.email, size: 150, html: { class: "user-profile-avatar mr-4" } %>
+    <div class="d-flex flex-column flex-auto">
+      <div class="d-flex flex-justify-between mb-2">
+        <div class="f3 bold"><%= @user.name %></div>
 
-      <% if current_user == @user %>
-        <%= link_to "Edit", edit_profile_path(@user), class: "action-button primary" %>
-      <% end %>
-    </div>
+        <%= link_to "Edit", edit_profile_path(@user), class: "action-button primary", data: { "visible-to" => "owner" } %>
+      </div>
 
-    <div class="mb-1 f4">
-      <span class="bold">Birthday: </span>
-      <%= @user.birth_date.present? ? @user.birth_date.strftime("%e %b, %Y") : "N/A" %>
-    </div>
-    <div class="f4">
-      <span class="bold">Biography: </span>
-      <%= @user.biography? ? @user.biography : "N/A" %>
+      <div class="mb-1 f4">
+        <span class="bold">Birthday: </span>
+        <%= @user.birth_date.present? ? @user.birth_date.strftime("%e %b, %Y") : "N/A" %>
+      </div>
+      <div class="f4">
+        <span class="bold">Biography: </span>
+        <%= @user.biography? ? @user.biography : "N/A" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

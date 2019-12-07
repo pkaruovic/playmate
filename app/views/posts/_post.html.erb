@@ -1,53 +1,16 @@
 <div id="<%= "post-#{post.id}" %>" class="box p-3 mb-4" data-test="<%= "post-#{post.id}" %>">
-  <div class="d-flex flex-align-center mb-2">
-    <div class="mr-2">
-      <%= render partial: "users/user_avatar", locals: { user: post.user } %>
-    </div>
-    <div class="d-flex flex-column left-padding">
-      <%= link_to post.user.name, profile_path(post.user), data: { test: "post_owner" }, class: "f4 bold" %>
-      <span class="f6 gray">
-        <%= time_ago_in_words(post.created_at) %> ago
-      </span>
-    </div>
-  </div>
-
-  <div class="d-flex f5 mb-2">
-    <div class="d-flex flex-align-center mr-3">
-      <%= embedded_svg "svg/die.svg", class: "mr-2" %>
-      <span data-test="post_game"><%= post.game %></span>
-    </div>
-    <div class="d-flex flex-align-center mr-3">
-      <%= embedded_svg "svg/place.svg", class: "mr-2" %>
-      <span data-test="post_city"><%= post.city %></span>
-    </div>
-    <div class="d-flex flex-align-center mr-3">
-      <%= embedded_svg "svg/calendar.svg", class: "mr-2" %>
-      <span data-test="post_date"><%= post.date.strftime("%-e.%-m.%y") %></span>
-    </div>
-    <div class="d-flex flex-align-center mr-3">
-      <%= embedded_svg "svg/person.svg", class: "mr-2" %>
-      <span data-test="post_players_needed"><%= post.players_needed %></span>
-    </div>
-    <% if post.skill_level.present? %>
-      <div class="d-flex flex-align-center mr-3">
-        <%= embedded_svg "svg/weight.svg", class: "mr-2" %>
-        <span data-test="post_skill_level"><%= post.skill_level %></span>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-3" data-test="post_description">
-    <%= post.description %>
-  </div>
+  <% cache ["post-body", post] do %>
+    <%= render partial: "posts/post_body", locals: { post: post } %>
+  <% end %>
 
   <hr class="thin">
 
   <div class="d-flex flex-align-center">
-    <% if post.belongs_to?(current_user) %>
-      <% unless current_page? post_path(post) %>
-        <%= link_to "Open", post_path(post), class: "f4 bold mr-3" %>
-      <% end %>
+    <% if current_page?(root_path) || current_page?(posts_path) %>
+      <%= link_to "Open", post_path(post), class: "f4 bold mr-3" %>
+    <% end %>
 
+    <% if post.belongs_to?(current_user) %>
       <%= link_to "Edit", edit_post_path(post), class: "f4 bold mr-3" %>
 
       <%= form_for post do |form| %>
@@ -60,14 +23,18 @@
       <% end %>
     <% end %>
 
-    <% if !post.belongs_to?(current_user) && !post.interested_users.include?(current_user) %>
-      <%= form_tag post_interested_users_path(post), remote: true do %>
-        <%= submit_tag "Interested", class: "link-button", data: { test: "add_interested_user_btn" } %>
-      <% end %>
-    <% elsif post.interested_users.include?(current_user) %>
-      <%= form_tag post_interested_user_path(post, current_user), method: :delete, remote: true do %>
-        <%= submit_tag "✓ Interested", class: "link-button", data: { test: "remove_interested_user_btn" } %>
+    <% if !post.belongs_to?(current_user) %>
+      <% join_request = post.join_requests.find_by(user: current_user) %>
+      <% if join_request.present? %>
+        <%= form_tag post_join_request_path(post, join_request), method: :delete, remote: true do %>
+          <%= submit_tag "✓ Interested", class: "link-button", data: { test: "remove_join_request_btn" } %>
+        <% end %>
+      <% else %>
+        <%= form_tag post_join_requests_path(post), remote: true do %>
+          <%= submit_tag "Interested", class: "link-button", data: { test: "add_join_request_btn" } %>
+        <% end %>
       <% end %>
     <% end %>
+
   </div>
 </div>

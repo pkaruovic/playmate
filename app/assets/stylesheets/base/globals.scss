@@ -75,6 +75,10 @@ a {
   margin: 24px;
 }
 
+.ml-6 {
+  margin-left: 48px;
+}
+
 .mr-1 {
   margin-right: 4px;
 }
@@ -125,6 +129,30 @@ a {
 
 .p-5 {
   padding: 32px;
+}
+
+.pt-3 {
+  padding-top: 16px;
+}
+
+.pb-3 {
+  padding-bottom: 8px;
+}
+
+.pl-3 {
+  padding-left: 16px;
+}
+
+.pr-3 {
+  padding-right: 16px;
+}
+
+.bb-light {
+  border-bottom: 1px solid $light-gray;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .wsp {
@@ -202,7 +230,7 @@ a {
 
 .thin {
   border-width: 0.5px;
-  border-color: $border-color;
+  border-color: $light-gray;
 }
 
 .flash {
@@ -240,4 +268,14 @@ a {
 .empty-state-image {
   width: 300px;
   height: auto;
+}
+
+.badge {
+  text-align: center;
+  padding: 6px 10px;
+  font-size: $tiny;
+  font-weight: 600;
+  color: $white;
+  background: $green;
+  border-radius: $small-border-radius;
 }
