@@ -11,17 +11,15 @@
       <span class="badge">Accepted</span>
     <% end %>
 
-    <% if join_request.post.belongs_to?(current_user) %>
-      <% if join_request.accepted? %>
-        <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true do |f| %>
-          <%= f.hidden_field :status, value: JoinRequest.statuses[:pending] %>
-          <%= f.submit "Remove", class: "link-button ml-6" %>
-        <% end %>
-      <% else %>
-        <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true do |f| %>
-          <%= f.hidden_field :status, value: JoinRequest.statuses[:accepted] %>
-          <%= f.submit "Accept", class: "link-button ml-6" %>
-        <% end %>
+    <% if join_request.accepted? %>
+      <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true, data: { "visible-to" => "owner" } do |f| %>
+        <%= f.hidden_field :status, value: JoinRequest.statuses[:pending] %>
+        <%= f.submit "Remove", class: "link-button ml-6" %>
+      <% end %>
+    <% else %>
+      <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true, data: { "visible-to" => "owner" } do |f| %>
+        <%= f.hidden_field :status, value: JoinRequest.statuses[:accepted] %>
+        <%= f.submit "Accept", class: "link-button ml-6" %>
       <% end %>
     <% end %>
   </div>

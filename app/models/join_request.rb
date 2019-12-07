@@ -2,7 +2,7 @@
 
 class JoinRequest < ApplicationRecord
   belongs_to :user
-  belongs_to :post
+  belongs_to :post, touch: true
 
   enum status: { pending: "pending", accepted: "accepted" }
 end
