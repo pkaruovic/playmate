@@ -10,7 +10,7 @@
 
 <div class="form-field">
   <%= label_for form, :city, class: "label" %>
-  <%= form.text_field :city, class: "text-input" %>
+  <%= form.text_field :city, class: "text-input", placeholder: "", data: { provide: "city-autocomplete" } %>
 </div>
 
 <div class="form-field">
