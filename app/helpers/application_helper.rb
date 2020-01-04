@@ -4,8 +4,11 @@ module ApplicationHelper
     file = assets.find_asset(filename).source.force_encoding("UTF-8")
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css "svg"
-    if options[:class].present?
-      svg["class"] = options[:class]
+    if options.key?(:class)
+      svg["class"] = options.fetch(:class)
+    end
+    options.fetch(:data, {}).each do |key, value|
+      svg["data-#{key}"] = value
     end
     raw doc
   end
