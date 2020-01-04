@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
 
   root to: "homes#show"
+  get "/search", to: "homes#search", as: :search_posts
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]

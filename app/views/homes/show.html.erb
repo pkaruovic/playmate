@@ -2,8 +2,41 @@
   <%= render partial: "posts/empty_state" %>
 <% else %>
   <div class="posts-list">
-    <h1>Posts</h1>
-    <%= render partial: "posts/post", collection: @posts %>
-    <%= paginate @posts %>
+    <div class="d-flex flex-justify-between flex-align-center">
+      <h1>Posts</h1>
+
+      <%= form_with url: search_posts_path, method: :get, skip_enforcing_utf8: true, class: "d-flex", data: { behaviour: "autosubmit" } do |f| %>
+        <div class="toolbar-select mr-3">
+          <span id="game_type_select" class="select-cover"></span>
+          <%= f.select :game_type,
+            options_for_select(Post.game_types.transform_keys(&:capitalize).to_a),
+            { prompt: "All game types" },
+            value: @search_params.fetch(:game_type, nil),
+            data: { "label-id" => "game_type_select" }
+          %>
+        </div>
+        <%= f.date_field :date_from, type: :hidden, value: @search_params.fetch(:date_from, nil) %>
+        <%= f.date_field :date_to, type: :hidden, value: @search_params.fetch(:date_to, nil) %>
+        <div class="search-field mr-3" data-provide="date_range_picker">
+          <%= embedded_svg "svg/date_range.svg" %>
+          <input
+            type="text"
+            value="<%= @search_params.fetch(:date_from, nil) %> to <%= @search_params.fetch(:date_to, nil) %>"
+            data-input
+            data-fill-inputs="date_from, date_to"
+            />
+            <%= embedded_svg "svg/clear.svg", class: "pointer", data: { clear: true } %>
+        </div>
+        <div class="search-field">
+          <%= embedded_svg "svg/search.svg" %>
+          <%= f.text_field :query, value: @search_params.fetch(:query, "") %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="posts_list">
+      <%= render @posts %>
+      <%= paginate @posts %>
+    </div>
   </div>
 <% end %>
