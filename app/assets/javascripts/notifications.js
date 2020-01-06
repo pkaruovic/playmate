@@ -1,8 +1,6 @@
-$(document).on('turbolinks:load ajax:success ajaxSuccess', function() {
-  $('#notifications-pagination-link').on('ajax:success', function() {
-    this.remove();
-    markNotificationsAsRead();
-  });
+$(document).on('ajax:success', '#notifications-pagination-link', function() {
+  this.remove();
+  markNotificationsAsRead();
 });
 
 function markNotificationsAsRead() {
@@ -17,7 +15,7 @@ function markNotificationsAsRead() {
       headers: {
         accept: 'application/javascript',
       },
-      url: 'notifications/mark_as_read',
+      url: '/notifications/mark_as_read',
       data: {
         ids: ids,
       },

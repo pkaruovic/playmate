@@ -4,7 +4,7 @@ App.notifications = App.cable.subscriptions.create('NotificationsChannel', {
     $('#notification-indicator').removeClass('d-none');
     $.ajax({
       type: 'GET',
-      url: 'notifications',
+      url: '/notifications',
       headers: {
         Accept: 'application/javascript',
       },
