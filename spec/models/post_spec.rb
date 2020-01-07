@@ -80,5 +80,19 @@ RSpec.describe Post, type: :model do
       expect(described_class.search(date_to: Date.new(2020, 11, 30))).to eq [november_post]
       expect(described_class.search(date_from: Date.new(2020, 10, 1), date_to: Date.new(2020, 11, 1))).to eq [november_post]
     end
+
+    it "returns archived posts" do
+      archived_post = create(:post, archived: true)
+      active_post = create(:post, archived: false)
+
+      expect(described_class.search(archived: true)).to eq [archived_post]
+    end
+
+    it "returns active posts" do
+      archived_post = create(:post, archived: true)
+      active_post = create(:post, archived: false)
+
+      expect(described_class.search(archived: false)).to eq [active_post]
+    end
   end
 end

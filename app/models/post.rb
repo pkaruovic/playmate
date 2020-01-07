@@ -22,7 +22,7 @@ class Post < ApplicationRecord
   scope :active, ->{ where("date >= ?", Date.today).where(archived: false) }
 
   class << self
-    def search(query: nil, game_type: nil, date_from: nil, date_to: nil)
+    def search(query: nil, game_type: nil, date_from: nil, date_to: nil, archived: nil)
       scoped = all
       if query.present?
         search_query = query.strip.downcase
@@ -36,6 +36,7 @@ class Post < ApplicationRecord
       scoped = scoped.where(game_type: game_type) if game_type.present?
       scoped = scoped.where("date >= ?", date_from) if date_from.present?
       scoped = scoped.where("date <= ?", date_to) if date_to.present?
+      scoped = scoped.where("archived = ?", archived) unless archived.nil?
 
       scoped
     end
