@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @search_params = search_params
-    @posts = current_user.posts.includes(:interested_users)
+    @posts = current_user.posts
     @posts = @posts.search(@search_params) unless @search_params.empty?
     @posts = @posts.by_date.page(params[:page]).per(10)
 

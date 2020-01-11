@@ -5,12 +5,11 @@ class HomesController < ApplicationController
   before_action :set_search_params, only: [:show, :search]
 
   def show
-    @posts = Post.includes(:user, :interested_users)
-      .active.by_date.page(params[:page]).per(10)
+    @posts = Post.includes(:user).active.by_date.page(params[:page]).per(10)
   end
 
   def search
-    @posts = Post.includes(:user, :interested_users).active
+    @posts = Post.includes(:user).active
     @posts = @posts.search(search_params) unless search_params.empty?
     @posts = @posts.by_date.page(params[:page]).per(10)
 
