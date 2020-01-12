@@ -201,6 +201,8 @@ a {
 
 .content {
   padding-top: 70px;
+  max-width: 800px;
+  margin: auto;
 }
 
 .center-align {
@@ -212,7 +214,6 @@ a {
 }
 
 .container {
-  width: 700px;
   background: $white;
   padding: 30px;
   border: $border-color;

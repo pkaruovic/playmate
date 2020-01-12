@@ -1,8 +1,6 @@
-<div class="posts-list">
-  <div class="mb-4">
-    <%= render @post %>
-  </div>
-
-  <%= render partial: "join_requests/join_requests", locals: { post: @post } %>
+<div class="mb-4">
+  <%= render @post %>
 </div>
+
+<%= render partial: "join_requests/join_requests", locals: { post: @post } %>
 
