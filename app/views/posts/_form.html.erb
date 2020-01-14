@@ -10,12 +10,12 @@
 
 <div class="form-field">
   <%= label_for form, :city, class: "label" %>
-  <%= form.text_field :city, class: "text-input" %>
+  <%= form.text_field :city, class: "text-input", placeholder: "", data: { provide: "city-autocomplete" } %>
 </div>
 
 <div class="form-field">
   <%= label_for form, :date, class: "label" %>
-  <%= form.text_field :date, value: form.object.date.try(:strftime,"%e %B, %Y"), class: "text-input", data: { provide: "datepicker" } %>
+  <%= form.text_field :date, class: "text-input", data: { provide: "date_picker" } %>
 </div>
 
 <div class="form-field">

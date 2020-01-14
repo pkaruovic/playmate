@@ -4,9 +4,14 @@ class PostsController < ApplicationController
   before_action :require_login
 
   def index
-    @posts = current_user.posts
-      .includes(:interested_users).by_date
+    @search_params = search_params
+    @posts = current_user.posts.search(@search_params).by_date
       .page(params[:page]).per(10)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -48,5 +53,14 @@ class PostsController < ApplicationController
       :game, :game_type, :description, :city, :date,
       :skill_level, :players_needed, :archived
     )
+  end
+
+  def search_params
+    hash = params.permit(:archived, :query).to_h.symbolize_keys
+    hash[:archived] = hash.fetch(:archived) do |key|
+      hash.key?(key) ? hash[key] == "true" : false
+    end
+
+    hash
   end
 end

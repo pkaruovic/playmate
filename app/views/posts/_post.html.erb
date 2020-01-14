@@ -6,9 +6,7 @@
   <hr class="thin">
 
   <div class="d-flex flex-align-center">
-    <% if current_page?(root_path) || current_page?(posts_path) %>
-      <%= link_to "Open", post_path(post), class: "f4 bold mr-3" %>
-    <% end %>
+    <%= link_to "Open", post_path(post), class: "f4 bold mr-3", "data-visible-on" => "#{root_path} #{search_posts_path} #{posts_path}" %>
 
     <% if post.belongs_to?(current_user) %>
       <%= link_to "Edit", edit_post_path(post), class: "f4 bold mr-3" %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
@@ -28,6 +30,69 @@ RSpec.describe Post, type: :model do
       create(:join_request, post: post, status: "pending")
 
       expect(post.players_missing).to eq 2
+    end
+  end
+
+  describe ".search" do
+    it "returns all posts when query is empty" do
+      first_post = create(:post, description: "Hello there!")
+      second_post = create(:post, description: "Hola mundo!")
+
+      expect(described_class.search(query: "")).to match_array [first_post, second_post]
+    end
+
+    it "returns posts which contain given text in description" do
+      first_post = create(:post, description: "Hello there!")
+      second_post = create(:post, description: "Hola mundo!")
+
+      expect(described_class.search(query: "hello")).to eq [first_post]
+    end
+
+    it "returns posts which contain given text in city name" do
+      first_post = create(:post, city: "Belgrade")
+      second_post = create(:post, city: "Vlasotince")
+
+      expect(described_class.search(query: "vla")).to eq [second_post]
+    end
+
+    it "returns posts which contain given text in game name" do
+      first_post = create(:post, game: "Gloomhaven")
+      second_post = create(:post, game: "Catan")
+
+      expect(described_class.search(query: "haven")).to eq [first_post]
+    end
+
+    it "returns posts for given game type" do
+      board_game_post = create(:post, game_type: "board game")
+      sport_post = create(:post, game_type: "sport")
+
+      expect(described_class.search(game_type: "board game")).to eq [board_game_post]
+      expect(described_class.search(game_type: "sport")).to eq [sport_post]
+    end
+
+    it "returns posts in given date range" do
+      november_post = create(:post, date: Date.new(2020, 11, 1))
+      december_post = create(:post, date: Date.new(2020, 12, 1))
+
+      expect(described_class.search(date_from: Date.new(2020, 11, 1))).to eq [november_post, december_post]
+      expect(described_class.search(date_from: Date.new(2020, 11, 2))).to eq [december_post]
+      expect(described_class.search(date_to: Date.new(2020, 12, 1))).to eq [november_post, december_post]
+      expect(described_class.search(date_to: Date.new(2020, 11, 30))).to eq [november_post]
+      expect(described_class.search(date_from: Date.new(2020, 10, 1), date_to: Date.new(2020, 11, 1))).to eq [november_post]
+    end
+
+    it "returns archived posts" do
+      archived_post = create(:post, archived: true)
+      active_post = create(:post, archived: false)
+
+      expect(described_class.search(archived: true)).to eq [archived_post]
+    end
+
+    it "returns active posts" do
+      archived_post = create(:post, archived: true)
+      active_post = create(:post, archived: false)
+
+      expect(described_class.search(archived: false)).to eq [active_post]
     end
   end
 end

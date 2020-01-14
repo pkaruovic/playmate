@@ -12,6 +12,5 @@
  *
  *= require_self
  *= require main
- *= require pickadate/classic
- *= require pickadate/classic.date
+ *= require flatpickr
  */

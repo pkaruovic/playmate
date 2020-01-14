@@ -1,1 +1,2 @@
-<%= render "rerender_post" %>
+$("#post-<%= @post.id %>").replaceWith("<%= j render @post %>")
+$("#join_requests_wrapper").replaceWith("<%= j render(partial: "join_requests", locals: { post: @post }) %>")

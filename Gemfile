@@ -18,7 +18,7 @@ gem 'clearance'
 gem 'kaminari'
 gem 'gravatarify', '~> 3.1.0'
 gem 'jquery-rails'
-gem 'pickadate-rails'
+gem 'flatpickr_rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
