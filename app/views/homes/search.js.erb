@@ -1,5 +1,5 @@
-<% if @posts.empty? %>
-$("#posts_list").html("<%= j(render partial: "posts/no_results_found") %>");
-<% else %>
+<% if @posts.exists? %>
 $("#posts_list").html("<%= j(render @posts) %>");
+<% else %>
+$("#posts_list").html("<%= j(render partial: "posts/no_results_found") %>");
 <% end %>
