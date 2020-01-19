@@ -1,13 +1,19 @@
-<div class="d-flex flex-align-center mb-2">
-  <div class="mr-2">
-    <%= render partial: "users/user_avatar", locals: { user: post.user } %>
+<div class="d-flex flex-align-center flex-justify-between mb-2">
+  <div class="d-flex flex-align-center">
+    <div class="mr-2">
+      <%= render partial: "users/user_avatar", locals: { user: post.user } %>
+    </div>
+    <div class="d-flex flex-column left-padding">
+      <%= link_to post.user.name, profile_path(post.user), data: { test: "post_owner" }, class: "f4 bold" %>
+      <span class="f6 gray">
+        <%= time_ago_in_words(post.created_at) %> ago
+      </span>
+    </div>
   </div>
-  <div class="d-flex flex-column left-padding">
-    <%= link_to post.user.name, profile_path(post.user), data: { test: "post_owner" }, class: "f4 bold" %>
-    <span class="f6 gray">
-      <%= time_ago_in_words(post.created_at) %> ago
-    </span>
-  </div>
+
+  <% if post.players_found? %>
+    <span class="badge">Players found</span>
+  <% end %>
 </div>
 
 <div class="d-flex f5 mb-2">
