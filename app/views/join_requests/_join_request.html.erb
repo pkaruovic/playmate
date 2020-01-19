@@ -17,9 +17,11 @@
         <%= f.submit "Remove", class: "link-button ml-6" %>
       <% end %>
     <% else %>
-      <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true, data: { "visible-to" => "owner" } do |f| %>
-        <%= f.hidden_field :status, value: JoinRequest.statuses[:accepted] %>
-        <%= f.submit "Accept", class: "link-button ml-6" %>
+      <% unless join_request.post.players_found? %>
+        <%= form_for join_request, url: post_join_request_path(join_request.post, join_request), remote: true, data: { "visible-to" => "owner" } do |f| %>
+          <%= f.hidden_field :status, value: JoinRequest.statuses[:accepted] %>
+          <%= f.submit "Accept", class: "link-button ml-6" %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
