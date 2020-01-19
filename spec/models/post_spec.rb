@@ -95,4 +95,17 @@ RSpec.describe Post, type: :model do
       expect(described_class.search(archived: false)).to eq [active_post]
     end
   end
+
+  describe "#players_found?" do
+    it "is true when there are as many accepted join requests as there are players needed" do
+      post = create(:post, players_needed: 1)
+      join_request = create(:join_request, post: post)
+
+      expect(post.players_found?).to be false
+
+      join_request.update(status: :accepted)
+
+      expect(post.players_found?).to be true
+    end
+  end
 end

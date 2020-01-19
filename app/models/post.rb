@@ -50,4 +50,8 @@ class Post < ApplicationRecord
   def players_missing
     players_needed - join_requests.accepted.size
   end
+
+  def players_found?
+    players_missing == 0
+  end
 end
