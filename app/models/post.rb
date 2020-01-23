@@ -19,9 +19,18 @@ class Post < ApplicationRecord
   validates :city, :date, :game, :game_type, :players_needed, presence: true
 
   scope :by_date, ->{ order(created_at: :desc) }
-  scope :active, ->{ where("date >= ?", Date.today).where(archived: false) }
 
   class << self
+    def available
+      joins("LEFT JOIN (" +
+            JoinRequest.accepted.to_sql +
+            ") join_requests ON posts.id = join_requests.post_id")
+        .where("posts.date >= ?", Date.today)
+        .where(archived: false)
+        .group("posts.id")
+        .having("COUNT(join_requests.id) < posts.players_needed")
+    end
+
     def search(query: nil, game_type: nil, date_from: nil, date_to: nil, archived: nil)
       scoped = all
       if query.present?

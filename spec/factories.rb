@@ -17,6 +17,12 @@ FactoryBot.define do
     city { "Belgrade" }
     date { Date.today }
     association :user, factory: :user
+
+    trait :filled do
+      after :build do |post|
+        post.join_requests = build_list(:join_request, post.players_needed, post: post, status: "accepted")
+      end
+    end
   end
 
   factory :notification do

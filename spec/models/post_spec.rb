@@ -12,6 +12,17 @@ RSpec.describe Post, type: :model do
   it { should validate_presence_of(:players_needed) }
   it { should have_many(:join_requests).dependent(:destroy) }
 
+  describe ".available" do
+    it "is active post which has players missing" do
+      outdated_post = create(:post, date: 5.days.ago)
+      archived_post = create(:post, archived: true)
+      filled_post = create(:post, :filled)
+      available_post = create(:post)
+
+      expect(described_class.available).to eq [available_post]
+    end
+  end
+
   describe "#belongs_to" do
     it "checks if post belongs to user" do
       owner = create(:user)
