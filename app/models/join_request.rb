@@ -8,6 +8,8 @@ class JoinRequest < ApplicationRecord
 
   validate :validate_number_of_accepted_join_requests
 
+  scope :accepted, ->{ where(status: "accepted") }
+
   private
 
   def validate_number_of_accepted_join_requests
