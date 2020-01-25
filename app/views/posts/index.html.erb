@@ -4,20 +4,13 @@
   <div class="d-flex flex-justify-between flex-align-center">
     <h1>Posts</h1>
 
-    <%= form_with url: posts_path, method: :get, skip_enforcing_utf8: true, class: "d-flex", data: { behaviour: "autosubmit" } do |f| %>
-      <div class="toolbar-select mr-3">
-        <span id="archived_select_cover" class="select-cover"></span>
-        <%= f.select :archived,
-          options_for_select({ "Active" => false, "Archived" => true }, @search_params.fetch(:archived)),
-          {},
-          data: { "label-id" => "archived_select_cover" }
-        %>
-    </div>
-    <div class="search-field">
-      <%= embedded_svg "svg/search.svg" %>
-      <%= f.text_field :query, value: @search_params.fetch(:query, "") %>
-    </div>
-  <% end %>
+    <%= render partial: "search_form",
+      locals: {
+        url: posts_path,
+        fields: %w[archived query],
+        search_params: @search_params
+      }
+    %>
   </div>
 
   <div id="posts_list">
