@@ -1,0 +1,31 @@
+<% if !@posts.exists? && @search_params.empty? %>
+  <%= render partial: "empty_state" %>
+<% else %>
+  <div class="d-flex flex-justify-between flex-align-center">
+    <h1>Interested</h1>
+
+    <%= form_with url: interested_posts_path, method: :get, skip_enforcing_utf8: true, class: "d-flex", data: { behaviour: "autosubmit" } do |f| %>
+      <div class="toolbar-select mr-3">
+        <span id="game_type_select" class="select-cover"></span>
+        <%= f.select :game_type,
+          options_for_select(Post.game_types.transform_keys(&:capitalize).to_a, @search_params.fetch(:game_type, nil)),
+          { prompt: "All game types" },
+          data: { "label-id" => "game_type_select" }
+        %>
+    </div>
+    <div class="search-field">
+      <%= embedded_svg "svg/search.svg" %>
+      <%= f.text_field :query, value: @search_params.fetch(:query, "") %>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="posts_list">
+    <% if @posts.exists? %>
+      <%= render @posts %>
+      <%= paginate @posts %>
+    <% else %>
+      <%= render partial: "posts/no_results_found" %>
+    <% end %>
+  </div>
+<% end %>

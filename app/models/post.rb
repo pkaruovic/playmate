@@ -19,6 +19,7 @@ class Post < ApplicationRecord
   validates :city, :date, :game, :game_type, :players_needed, presence: true
 
   scope :by_date, ->{ order(created_at: :desc) }
+  scope :active, ->{ where(archived: false) }
 
   class << self
     def available
