@@ -9,8 +9,20 @@ RSpec.describe Post, type: :model do
   it { should validate_presence_of(:date) }
   it { should validate_presence_of(:game) }
   it { should validate_presence_of(:game_type) }
-  it { should validate_presence_of(:players_needed) }
+  it { should validate_numericality_of(:players_needed).is_greater_than(0) }
   it { should have_many(:join_requests).dependent(:destroy) }
+
+  describe "#players_needed" do
+    it "cannot be less than the number of players accepted" do
+      post = create(:post, players_needed: 2)
+      create_list(:join_request, 2, post: post, status: "accepted")
+
+      post.players_needed = 1
+
+      expect(post).not_to be_valid
+      expect(post.errors[:players_needed]).not_to be_empty
+    end
+  end
 
   describe ".available" do
     it "is active post which has players missing" do
