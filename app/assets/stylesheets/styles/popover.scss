@@ -7,6 +7,13 @@
   z-index: 1;
 }
 
+.popover-content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  white-space: nowrap;
+}
+
 .popover-arrow-content,
 .popover-arrow-border {
   bottom: 100%;

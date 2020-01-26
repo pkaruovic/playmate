@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
   has_many :join_requests, dependent: :destroy
+  has_many :interested_posts, through: :join_requests, source: :post
 
   enum genders: { male: "male", female: "female" }
 

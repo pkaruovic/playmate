@@ -9,6 +9,7 @@ feature "user searches for post", type: :feature do
       first_post = create(:post, description: "Hello there!", archived: false)
       second_post = create(:post, description: "Hola mundo!", archived: false)
       outdated_post = create(:post, description: "Hello, I'm old", date: 5.days.ago, archived: false)
+      filled_post = create(:post, :filled, description: "Hello, I'm filled", archived: false)
       archived_post = create(:post, description: "Hello, I'm archived", archived: true)
 
       visit root_path(as: user)
@@ -16,6 +17,7 @@ feature "user searches for post", type: :feature do
 
       expect(page).not_to have_post second_post
       expect(page).not_to have_post outdated_post
+      expect(page).not_to have_post filled_post
       expect(page).not_to have_post archived_post
       # if we set this expectation as first it may be false positive
       # because first post already exists on the page and search ajax may not be resolved yet
@@ -27,6 +29,7 @@ feature "user searches for post", type: :feature do
       first_post = create(:post, game_type: "board game", archived: false)
       second_post = create(:post, game_type: "sport", archived: false)
       outdated_post = create(:post, game_type: "board game", date: 5.days.ago, archived: false)
+      filled_post = create(:post, :filled, game_type: "board game", archived: false)
       archived_post = create(:post, game_type: "board game", archived: true)
 
       visit root_path(as: user)
@@ -34,6 +37,7 @@ feature "user searches for post", type: :feature do
 
       expect(page).not_to have_post second_post
       expect(page).not_to have_post outdated_post
+      expect(page).not_to have_post filled_post
       expect(page).not_to have_post archived_post
       # if we set this expectation as first it may be false positive
       # because first post already exists on the page and search ajax may not be resolved yet
@@ -44,6 +48,7 @@ feature "user searches for post", type: :feature do
       user = create(:user)
       first_post = create(:post, date: next_month_date(18), archived: false)
       second_post = create(:post, date: next_month_date(20), archived: false)
+      filled_post = create(:post, :filled, date: next_month_date(20), archived: false)
       archived_post = create(:post, date: next_month_date(20), archived: true)
 
       visit root_path(as: user)
@@ -53,6 +58,7 @@ feature "user searches for post", type: :feature do
 
       expect(page).not_to have_post first_post
       expect(page).not_to have_post archived_post
+      expect(page).not_to have_post filled_post
       expect(page).to have_post second_post
     end
 
@@ -64,6 +70,7 @@ feature "user searches for post", type: :feature do
       first_post = create(:post, user: user, description: "Hello there!", archived: false)
       second_post = create(:post, user: user, description: "Hola mundo!", archived: false)
       outdated_post = create(:post, user: user, description: "Hello, I'm old", date: 5.days.ago, archived: false)
+      filled_post = create(:post, :filled, user: user, description: "Hello, I'm old", archived: false)
       archived_post = create(:post, user: user, description: "Hello, I'm archived", archived: true)
       another_user_post = create(:post, description: "Hello, i belong to another user!", archived: false)
 
@@ -78,6 +85,7 @@ feature "user searches for post", type: :feature do
       # because first post already exists on the page and search ajax may not be resolved yet
       expect(page).to have_post first_post
       expect(page).to have_post outdated_post
+      expect(page).to have_post filled_post
     end
 
     scenario "by archived status", js: true do

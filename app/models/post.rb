@@ -16,12 +16,24 @@ class Post < ApplicationRecord
   }
 
   validates :description, presence: true, length: { maximum: 250 }
-  validates :city, :date, :game, :game_type, :players_needed, presence: true
+  validates :city, :date, :game, :game_type, presence: true
+  validates :players_needed, numericality: { greater_than: 0 }
+  validate :players_needed_is_not_less_than_players_accepted
 
   scope :by_date, ->{ order(created_at: :desc) }
-  scope :active, ->{ where("date >= ?", Date.today).where(archived: false) }
+  scope :active, ->{ where(archived: false) }
 
   class << self
+    def available
+      joins("LEFT JOIN (" +
+            JoinRequest.accepted.to_sql +
+            ") join_requests ON posts.id = join_requests.post_id")
+        .where("posts.date >= ?", Date.today)
+        .where(archived: false)
+        .group("posts.id")
+        .having("COUNT(join_requests.id) < posts.players_needed")
+    end
+
     def search(query: nil, game_type: nil, date_from: nil, date_to: nil, archived: nil)
       scoped = all
       if query.present?
@@ -46,8 +58,19 @@ class Post < ApplicationRecord
     self.user.id == user.id
   end
 
-  # TODO: find a better name
   def players_missing
     players_needed - join_requests.accepted.size
+  end
+
+  def players_found?
+    players_missing == 0
+  end
+
+  private
+
+  def players_needed_is_not_less_than_players_accepted
+    if players_needed.present? && players_needed < join_requests.accepted.size
+      errors.add(:players_needed, :invalid, message: "cannot be less than the number of players accepted")
+    end
   end
 end

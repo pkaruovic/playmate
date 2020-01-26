@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :posts, only: [:index, :show, :new, :edit, :update, :create] do
     resources :join_requests, only: [:create, :update, :destroy]
   end
+  resources :interested_posts, only: [:index]
   resources :notifications, only: [:index] do
     patch "mark_as_read", on: :collection
   end

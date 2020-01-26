@@ -19,6 +19,7 @@ gem 'kaminari'
 gem 'gravatarify', '~> 3.1.0'
 gem 'jquery-rails'
 gem 'flatpickr_rails'
+gem 'rack-mini-profiler'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

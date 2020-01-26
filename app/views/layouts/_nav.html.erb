@@ -4,10 +4,21 @@
   <div class="nav-main-actions">
     <%= link_to "Home", root_path, class: "nav-link" %>
     <%= link_to "New post", new_post_path, class: "nav-link" %>
-    <%= link_to "My posts", posts_path, class: "nav-link" %>
+    <span class="position-relative d-flex flex-align-center" data-popover="posts-nav-popover">
+      <span class="nav-link">
+        Posts
+      </span>
+    </span>
+
+    <div data-popover-id="posts-nav-popover" class="popover-content">
+      <%= link_to "My posts", posts_path, class: "f5 mb-2" %>
+      <%= link_to "Interested posts", interested_posts_path, class: "f5" %>
+    </div>
 
     <span class="position-relative d-flex flex-align-center" data-popover="notifications-popover">
-      <span class="nav-link" onclick="markNotificationsAsRead()" data-test="notifications_btn">Notifications</span>
+      <span class="nav-link" onclick="markNotificationsAsRead()" data-test="notifications_btn">
+        Notifications
+      </span>
 
       <div id="notification-indicator"
            data-test="notification_indicator"
@@ -30,7 +41,7 @@
     </div>
   </div>
 
-  <div data-popover-id="user-actions-popover" class="user-actions-popover d-flex flex-column p-3" data-popover-align="right">
+  <div data-popover-id="user-actions-popover" class="popover-content" style="width: 60px;" data-popover-align="right">
     <%= link_to "Profile", profile_path(current_user), class: "f5 mb-2" %>
     <%= link_to "Log out", sign_out_path, method: :delete, class: "f5" %>
   </div>

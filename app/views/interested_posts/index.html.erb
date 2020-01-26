@@ -1,13 +1,13 @@
 <% if !@posts.exists? && @search_params.empty? %>
-  <%= render partial: "posts/empty_state" %>
+  <%= render partial: "empty_state" %>
 <% else %>
   <div class="d-flex flex-justify-between flex-align-center">
-    <h1>Posts</h1>
+    <h1>Interested</h1>
 
     <%= render partial: "posts/search_form",
       locals: {
-        url: search_posts_path,
-        fields: %w[game_type date_range query],
+        url: interested_posts_path,
+        fields: %w[game_type query],
         search_params: @search_params
       }
     %>

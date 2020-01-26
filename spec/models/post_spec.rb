@@ -9,8 +9,31 @@ RSpec.describe Post, type: :model do
   it { should validate_presence_of(:date) }
   it { should validate_presence_of(:game) }
   it { should validate_presence_of(:game_type) }
-  it { should validate_presence_of(:players_needed) }
+  it { should validate_numericality_of(:players_needed).is_greater_than(0) }
   it { should have_many(:join_requests).dependent(:destroy) }
+
+  describe "#players_needed" do
+    it "cannot be less than the number of players accepted" do
+      post = create(:post, players_needed: 2)
+      create_list(:join_request, 2, post: post, status: "accepted")
+
+      post.players_needed = 1
+
+      expect(post).not_to be_valid
+      expect(post.errors[:players_needed]).not_to be_empty
+    end
+  end
+
+  describe ".available" do
+    it "is active post which has players missing" do
+      outdated_post = create(:post, date: 5.days.ago)
+      archived_post = create(:post, archived: true)
+      filled_post = create(:post, :filled)
+      available_post = create(:post)
+
+      expect(described_class.available).to eq [available_post]
+    end
+  end
 
   describe "#belongs_to" do
     it "checks if post belongs to user" do
@@ -93,6 +116,19 @@ RSpec.describe Post, type: :model do
       active_post = create(:post, archived: false)
 
       expect(described_class.search(archived: false)).to eq [active_post]
+    end
+  end
+
+  describe "#players_found?" do
+    it "is true when there are as many accepted join requests as there are players needed" do
+      post = create(:post, players_needed: 1)
+      join_request = create(:join_request, post: post)
+
+      expect(post.players_found?).to be false
+
+      join_request.update(status: :accepted)
+
+      expect(post.players_found?).to be true
     end
   end
 end
